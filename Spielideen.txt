@@ -13,10 +13,12 @@ Filip:
 - Spielelemente von Catan: Rohstoff sammeln. Interaktion mit mehreren Spielern
 
 CP:
--radioaktive Welt, wo man loot in alten häusern finden kann, in der Nacht spawnen Monster die dich angreifen und töten wenn du sie nicht tötest, du kannst deine eigenen Base bauen, Monster greifen deine Base an// Essen//Radioaktivität//Temperatur--> devast.io
+-radioaktive Welt, wo man loot in alten häusern finden kann, in der Nacht spawnen Monster die dich angreifen und töten wenn du sie nicht tötest, du kannst deine eigenen Base bauen, Monster greifen deine Base an// Essen//Radioaktivität//Temperatur
 -Tanks schiesen sich gegenseitig ab 
 
 Mateo:
 - 
 
 fbhgrngrnrgtnrg
+- Checkers
+- Schach
