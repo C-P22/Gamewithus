@@ -19,6 +19,5 @@ CP:
 Mateo:
 - 
 
-fbhgrngrnrgtnrg
 - Checkers
 - Schach
