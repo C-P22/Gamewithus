@@ -1,1 +1,4 @@
-Mein Vorschlag ist, dass jeder seine eigenen Ideen hier schreiben und dann alle ihre Version pushen, damit wir dann für die beste Idee entscheiden können.
+Mein Vorschlag ist, dass jeder seine eigenen Ideen hier schreiben und dann alle ihre Version pushen, damit wir dann für die beste Idee entscheiden können, hier ist meine Idee, aber lest es lieber noch nicht, damit es nicht eure Ideen beeinflusst. Dadurch gibt es hoffentlich mehr Kreativität.
+
+2D platformer, aber man kann nicht springen. Man kann aber schon vertikal sich bewegen mit einem laser, der durch reflexion dich stossen kann, wenn er dich wieder trifft. Extra sachen wären z.B., dass es mehrere Farben hat und jede Farbe hat einen anderen Effekt. Rot könnte dich stossen und grün dich ziehen. Blau könnte die Schwerkraft verdrehen. gibt sicher noch andere Effekte, die es haben könnte.
+
