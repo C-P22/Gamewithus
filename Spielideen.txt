@@ -1,3 +1,11 @@
 Mein Vorschlag ist, dass jeder seine eigenen Ideen hier schreiben und dann alle ihre Version pushen, damit wir dann für die beste Idee entscheiden können.
 
 Kartenspiel (chinesische da :D)
+
+2D platformer, aber man kann nicht springen. Man kann aber schon vertikal sich bewegen mit einem laser, der durch reflexion dich stossen kann, wenn er dich wieder trifft. Extra sachen wären z.B., dass es mehrere Farben hat und jede Farbe hat einen anderen Effekt. Rot könnte dich stossen und grün dich ziehen. Blau könnte die Schwerkraft verdrehen. gibt sicher noch andere Effekte, die es haben könnte.
+
+Der Spieler springt ständig vom Boden ab und mit der Maus kontrolliert man wohin er springt.
+
+Es gibt ganz viele Gegner die sich in bestimmten Arten sich zu deiner Maus bewegen und dein Ziel ist es den Gegnern zu entkommen. Es gibt auch upgrades, die du kaufen kannst, aber du musst erst mit der Maus dorthin kommen.
+
+Ein Roboter hat Instruktionen, die dir gegeben werden und du musst das level ändern, damit der roboter zum ziel kommt.
