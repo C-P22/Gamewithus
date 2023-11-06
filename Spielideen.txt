@@ -2,9 +2,9 @@ Mein Vorschlag ist, dass jeder seine eigenen Ideen hier schreiben und dann alle 
 
 Guiheng:
 -Kartenspiel (chinesische da :D)
-
-ein ähnliches Spiel wie Polytopia, aber nur mit einen Tribe
-Tetris
+-ein ähnliches Spiel wie Polytopia, aber nur mit einen Tribe
+-Tetris
+-Battle Cat
 
 Tamás:
 -2D platformer, aber man kann nicht springen. Man kann aber schon vertikal sich bewegen mit einem laser, der durch reflexion dich stossen kann, wenn er dich wieder trifft. Extra sachen wären z.B., dass es mehrere Farben hat und jede Farbe hat einen anderen Effekt. Rot könnte dich stossen und grün dich ziehen. Blau könnte die Schwerkraft verdrehen. gibt sicher noch andere Effekte, die es haben könnte.
