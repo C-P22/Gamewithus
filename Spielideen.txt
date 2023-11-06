@@ -33,4 +33,3 @@ Mateo:
 - Checkers
 - Schach
 - ein parkour Spiel, wo man ans Ende des Parkours gelangen muss in möglichst wenig Zeit
->>>>>>> 5f896e52e4bd75f2db8b9db22d92a62cfc5dd1e6
