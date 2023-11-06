@@ -2,6 +2,13 @@ Mein Vorschlag ist, dass jeder seine eigenen Ideen hier schreiben und dann alle 
 
 Guiheng:
 -Kartenspiel (chinesische da :D)
+<<<<<<< HEAD
+ein ähnliches Spiel wie Polytopia, aber nur mit einen Tribe
+Tetris
+
+=======
+=======
+>>>>>>> 5f896e52e4bd75f2db8b9db22d92a62cfc5dd1e6
 
 Tamás:
 -2D platformer, aber man kann nicht springen. Man kann aber schon vertikal sich bewegen mit einem laser, der durch reflexion dich stossen kann, wenn er dich wieder trifft. Extra sachen wären z.B., dass es mehrere Farben hat und jede Farbe hat einen anderen Effekt. Rot könnte dich stossen und grün dich ziehen. Blau könnte die Schwerkraft verdrehen. gibt sicher noch andere Effekte, die es haben könnte.
@@ -15,10 +22,27 @@ Filip:
 
 CP:
 -radioaktive Welt, wo man loot in alten häusern finden kann, in der Nacht spawnen Monster die dich angreifen und töten wenn du sie nicht tötest, du kannst deine eigenen Base bauen, Monster greifen deine Base an// Essen//Radioaktivität//Temperatur
+<<<<<<< HEAD
+-Tanks schiesen sich gegenseitig ab 
+<<<<<<< HEAD
+-hello world 
+Mateo:
+- 
+
+fbhgrngrnrgtnrg
+- Checkers
+- Schach
+>>>>>>> db4372a1a3115cf0decec819c619173cb175edc4
+=======
+-hello carl
+-hello planet
+=======
 -Tanks schiesen sich gegenseitig ab
+>>>>>>> 2dd41680d0a2127307efca98fefce389dc139d24
 
 Mateo:
 - 
 
 - Checkers
 - Schach
+>>>>>>> 5f896e52e4bd75f2db8b9db22d92a62cfc5dd1e6
