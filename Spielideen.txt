@@ -11,7 +11,6 @@ Tamás:
 -Der Spieler springt ständig vom Boden ab und mit der Maus kontrolliert man wohin er springt.
 -Es gibt ganz viele Gegner die sich in bestimmten Arten sich zu deiner Maus bewegen und dein Ziel ist es den Gegnern zu entkommen. Es gibt auch upgrades, die du kaufen kannst, aber du musst erst mit der Maus dorthin kommen.
 -Ein Roboter hat Instruktionen, die dir gegeben werden und du musst das level ändern, damit der roboter zum ziel kommt.
--Multiplayer Spiel, wo man den Gegnern so viele GitHub conflicts geben muss, wie möglich.
 
 Filip:
 - Towerdefense, wie Clash of Clans, Gebäuden, die verbessert werden können und dabei ein neues Aussehen übernehmen.
@@ -20,13 +19,6 @@ Filip:
 CP:
 -radioaktive Welt, wo man loot in alten häusern finden kann, in der Nacht spawnen Monster die dich angreifen und töten wenn du sie nicht tötest, du kannst deine eigenen Base bauen, Monster greifen deine Base an// Essen//Radioaktivität//Temperatur
 -Tanks schiesen sich gegenseitig ab 
-
-Mateo:
-- 
-
-- Checkers
-- Schach
--Tanks schiesen sich gegenseitig ab
 
 Mateo:
 - Checkers
