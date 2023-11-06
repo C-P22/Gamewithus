@@ -28,8 +28,6 @@ Mateo:
 -Tanks schiesen sich gegenseitig ab
 
 Mateo:
-- 
-
 - Checkers
 - Schach
 - ein parkour Spiel, wo man ans Ende des Parkours gelangen muss in möglichst wenig Zeit
