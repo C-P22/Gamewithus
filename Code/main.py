@@ -15,18 +15,18 @@ class Game:
     def new(self):
         # when a new game starts 
         self.playing = True
-        self.all_sprites = pygame.sprite.LayeresUpdates() # hier können wir unsere Sprites reintun 
-        self.blocks= pygame.sprite.LayeresUpdates()
-        self.enemies= pygame.sprite.LayeresUpdates()
-        self.attacks= pygame.sprite.LayeresUpdates()
+        self.all_sprites = pygame.sprite.LayeredUpdates() # hier können wir unsere Sprites reintun
+        self.blocks= pygame.sprite.LayeredUpdates()
+        self.enemies= pygame.sprite.LayeredUpdates()
+        self.attacks= pygame.sprite.LayeredUpdates()
         self.player = Player(self,1,2)
 
     def update(self):
         self.all_sprites.update()
     def draw(self):
-        self.screnn.fill(BLACK)
+        self.screen.fill(BLACK)
         self.all_sprites.draw(self.screen)
-        self.clock.ticks(FPS)
+        self.clock.tick(FPS)
         pygame.display.update()
     def events(self):
         for event in pygame.event.get():# all events that are registrated are here beeing checkt
