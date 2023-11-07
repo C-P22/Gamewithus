@@ -1,0 +1,41 @@
+Pyramide:
+-speichert eine Liste von Labyrinthen geordnet von oben bis unten
+
+
+Labyrinth:
+-hat grösse
+-hat tiles (2D liste von Block)
+-hat eine Funktion labyinth_generieren()
+
+
+Block:
+-hat sprite
+-hat block_typ
+
+ZerstörbarerBlock:
+-vererbt Block
+-hat funktion zerstören()
+-setzt block_typ zu "zerstörbarer block"
+
+UnzerstörbarerBlock:
+-vererbt Block
+-setzt block_typ zu "unzerstörbarer block"
+
+BodenBlock:
+-vererbt Block
+-setzt block_typ zu "boden block"
+
+
+Upgrade:
+-hat spawn_wahrscheinlichkeit
+-hat upgrade_typ
+-hat eine leere Funktion upgrade_anwenden()
+
+BeispielUpgrade:
+-vererbt Upgrade
+-setzt upgrade_typ zu "beispiel upgrade"
+-hat eine Funktion upgrade_anwenden()
+
+
+Gegner:
+-

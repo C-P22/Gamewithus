@@ -3,7 +3,7 @@ Into the Pharaoh's Tomb
 Story:
 Man ist ein Grabräuber, der den Schatz des Pharao's sucht. Er betritt die Pyramide bei dem einzigen Eingang auf der Spitze der Pyramide.
 
-Mechaniken:
+Spiel:
 -Pyramide:
 --Hat mehrere Stockwerke, auf denen sich ein Labyrinth befindet.
 
