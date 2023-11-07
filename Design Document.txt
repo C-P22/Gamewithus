@@ -1,0 +1,42 @@
+Into the Pharaoh's Tomb
+
+Story:
+Man ist ein Grabräuber, der den Schatz des Pharao's sucht. Er betritt die Pyramide bei dem einzigen Eingang auf der Spitze der Pyramide.
+
+Mechaniken:
+-Pyramide:
+--Hat mehrere Stockwerke, auf denen sich ein Labyrinth befindet.
+
+-Labyrnith:
+--Hat einen Eingang, einen Ausgang, zerstörbare Blöcke, unzerstörbare Blöcke. Es hat immer einen Weg vom Eingang zum Ausgang ohne unzerstörbare Blöcke.
+--Je tiefer der Stock, desto grösser das Labyrinth.
+--Ist nicht von Hand gemacht, sondern wird zufällig generiert.
+--Auf allen Orten ohne unzerstörbaren Blöcken, ohne Eingang und ohne Ausgang sind zerstörbare Blöcke.
+
+-Zerstörbare Blöcke:
+--Können zerstört werden.
+--Lassen Upgrades, Gegner, oder nichts fallen, je nachZufall. Schlechteres, je tiefer.
+
+-Unzerstörbare Blöcke:
+--Können nicht zerstört werden.
+--Ein unzerstörbarer Block pro Labyrinth, kann zerstört werden. Er lässt etwas spezielles fallen lassen.
+
+-Spieler:
+--Kann sich auf einem quadratischen Raster im Labyrinth bewegen.
+--Kann zerstörbare Steine mit einer Spitzhacke zerstören.
+--Kann Gegner attackieren.
+--Hat eine Fackel, die wenig Licht erzeugt. Alles ausserhalb der Reichweite der Fackel ist schwarz.
+--Kann Gegner attackieren.
+--Hat Leben. Leben kann bis zum nächsten Viertel regenerieren. Wenn man ein Viertel verloren hat, kann man es nicht mehr regenerieren.
+--Hat verschiedene Werte:
+---Maximales Leben
+---Dauer nach Schaden bis man Leben regeneriert
+---Geschwindigkeit der Lebensregeneration
+---Rüstung (wie viel weniger Schaden man von Gegnern kriegt)
+---Stärke (wie viel Schaden man Gegnern zufügt)
+
+-Gegner:
+--Erhöht einen von den Werten des Spielers bei Tod.
+
+-Upgrades:
+--[Weiss ich nicht]
