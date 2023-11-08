@@ -43,6 +43,8 @@ class Game:
         self.running = False
     def game_over(self):
         pass
+
+             
 g = Game()
 g.new()
 while g.running:
