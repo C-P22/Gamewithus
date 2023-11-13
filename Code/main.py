@@ -19,10 +19,17 @@ class Game:
         self.blocks= pygame.sprite.LayeredUpdates()
         self.enemies= pygame.sprite.LayeredUpdates()
         self.attacks= pygame.sprite.LayeredUpdates()
-        self.player = Player(self,1,2)
-
+        #self.player = Player(self,1,2)
+        self.create_level()
     def update(self):
         self.all_sprites.update()
+    def create_level(self):
+        for i,row in enumerate(level_1):
+            for j,colum in enumerate(row):
+                if colum =="X":
+                    Block(self,j,i)
+                if colum == "P":
+                    Player(self,j,i)
     def draw(self):
         self.screen.fill(BLACK)
         self.all_sprites.draw(self.screen)
@@ -43,8 +50,6 @@ class Game:
         self.running = False
     def game_over(self):
         pass
-
-             
 g = Game()
 g.new()
 while g.running:
