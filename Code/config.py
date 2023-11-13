@@ -1,8 +1,35 @@
-WIN_WIDTH = 640
-WIN_HEIGHT = 640
-TILESIZE = 32
+WIN_WIDTH = 800
+WIN_HEIGHT = 800
+TILESIZE = 30
+BOXSIZE = 40
 FPS = 60 # framrate
-PLAYER_LAYER = 1
+
+
+PLAYER_LAYER = 2
+BLOCK_LAYER = 1
+
 PLAYER_SPEED = 3
 RED = (255,0,0)
 BLACK = (0,0,0)
+SAND =(194,178,128)
+level_1 =["XXXXXXXXXXXXXXXXXXXX",
+          "X.....X...X...X..X.X",
+          "X....X..X...X......X",
+          "X...........X.X....X",
+          "X.X......X...XX....X",
+          "X.....X.XX.........X",
+          "XX.X........XX.....X",
+          "X......X.....X.X...X",
+          "X.....X..XX.X.X.X..X",
+          "X..X..X...XX.XX.X..X",
+          ".P........X....X...X",
+          "X....X.X....X....XXX",
+          "X......X..X.....X..X",
+          "X...X.XXX..X.X.....X",
+          "X...............X..X",
+          "X..X..XX.X...X.....X",
+          "X......X..X.X.X....X",
+          "X...X...X..X..X.X..X",
+          "X....XXX.X.X.X.....X",
+          "XXXXXXXXXXXXXXXXXXXX"
+]
