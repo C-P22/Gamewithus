@@ -85,10 +85,4 @@ class Block(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
 
         self.rect.x = self.x
-        self.rect.y = self.y 
-
-            self.y_change -= PLAYER_SPEED
-            self.facing = 'up'
-        if key[pygame.K_DOWN]:
-            self.y_change += PLAYER_SPEED
-            self.facing = 'down'
+        self.rect.y = self.y
