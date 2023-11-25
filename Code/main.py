@@ -2,41 +2,48 @@ import pygame
 from sprite import *
 from config import *
 import sys
+from powerup import *
 import turtle
 
 
 class Game:
     def __init__(self):
         pygame.init()
-        self.screen = pygame.display.set_mode((WIN_WIDTH,WIN_HEIGHT))
-        self.clock = pygame.time.Clock() #framerate
-        self.running = True 
+        self.screen = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT))
+        self.clock = pygame.time.Clock()  # framerate
+        self.running = True
 
     def new(self):
         # when a new game starts 
         self.playing = True
-        self.all_sprites = pygame.sprite.LayeredUpdates() # hier können wir unsere Sprites reintun
-        self.blocks= pygame.sprite.LayeredUpdates()
-        self.enemies= pygame.sprite.LayeredUpdates()
-        self.attacks= pygame.sprite.LayeredUpdates()
-        #self.player = Player(self,1,2)
+        self.all_sprites = pygame.sprite.LayeredUpdates()  # hier können wir unsere Sprites reintun
+        self.blocks = pygame.sprite.LayeredUpdates()
+        self.enemies = pygame.sprite.LayeredUpdates()
+        self.attacks = pygame.sprite.LayeredUpdates()
+        # self.player = Player(self,1,2)
         self.create_level()
+
     def update(self):
         self.all_sprites.update()
+
     def create_level(self):
-        for i,row in enumerate(level_1):
-            for j,colum in enumerate(row):
-                if colum =="X":
-                    Block(self,j,i)
+        for i, row in enumerate(level_1):
+            for j, colum in enumerate(row):
+                if colum == "X":
+                    Block(self, j, i)
                 if colum == "P":
-                    Player(self,j,i)
+                    Player(self, j, i)
+                if colum == "B":
+                    POWERUP(self, j, i)
+
     def draw(self):
         self.screen.fill(BLACK)
         self.all_sprites.draw(self.screen)
         self.clock.tick(FPS)
         pygame.display.update()
+
     def events(self):
-        for event in pygame.event.get():# all events that are registrated are here beeing checkt
+        for event in pygame.event.get():  # all events that are registrated are here beeing checkt
 
             if event.type == pygame.QUIT:
                 self.playing = False
@@ -48,8 +55,11 @@ class Game:
             self.update()
             self.draw()
         self.running = False
+
     def game_over(self):
         pass
+
+
 g = Game()
 g.new()
 while g.running:

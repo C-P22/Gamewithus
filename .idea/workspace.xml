@@ -5,7 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="06787a0a-87cc-4193-9fae-8885a7abba0c" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Code_Guiheng/Powerups.py" beforeDir="false" afterPath="$PROJECT_DIR$/Code_Guiheng/useless code.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Code/powerup.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Code/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/Code/config.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Code/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Code/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,11 +46,11 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/Code_Guiheng" />
       <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/Code" />
+      <recent name="$PROJECT_DIR$/Code_Guiheng" />
       <recent name="$PROJECT_DIR$/Beispielcode/Lichteffekt" />
       <recent name="$PROJECT_DIR$/Lichteffekt" />
-      <recent name="$PROJECT_DIR$/Beispielcode" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -60,5 +63,16 @@
       <updated>1698750753434</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

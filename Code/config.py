@@ -12,10 +12,11 @@ PLAYER_SPEED = 3
 RED = (255,0,0)
 BLACK = (0,0,0)
 SAND =(194,178,128)
+BOOST =(222,191,202)
 level_1 =["XXXXXXXXXXXXXXXXXXXX",
           "X.....X...X...X..X.X",
           "X....X..X...X......X",
-          "X...........X.X....X",
+          "X....BBBBBBBX.X....X",
           "X.X......X...XX....X",
           "X.....X.XX.........X",
           "XX.X........XX.....X",
