@@ -3,7 +3,6 @@ from sprite import *
 from config import *
 import sys
 from powerup import *
-import turtle
 
 
 class Game:

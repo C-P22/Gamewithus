@@ -1,7 +1,5 @@
-import pygame.sprite
 from sprite import *
 from config import *
-import sys
 
 
 class POWERUP(pygame.sprite.Sprite):
@@ -30,3 +28,5 @@ class POWERUP(pygame.sprite.Sprite):
         if collide:
             PLAYER_SPEED += 20
             print("boost")
+        else:
+            print("no collision")
