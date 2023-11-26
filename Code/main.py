@@ -2,7 +2,7 @@ import pygame
 from sprite import *
 from config import *
 import sys
-from powerup import *
+
 
 
 class Game:
@@ -34,6 +34,7 @@ class Game:
                 if colum == "P":
                     Player(self, j, i)
                 if colum == "B":
+                    print(j,i)
                     POWERUP(self, j, i)
 
     def draw(self):

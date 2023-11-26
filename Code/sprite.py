@@ -2,7 +2,7 @@ import pygame
 import math
 from config import *
 import random
-from powerup import *
+
 
 
 class Player(pygame.sprite.Sprite):
@@ -53,7 +53,7 @@ class Player(pygame.sprite.Sprite):
             self.facing = 'down'
 
     def collide_powerup(self):
-        collide = pygame.sprite.spritecollide(self,self.game.powerup,True)
+        collide = pygame.sprite.spritecollide(self, self.game.powerup,True)
 
     def collide_block(self, direction):
         if direction == "x":
@@ -104,9 +104,10 @@ class Block(pygame.sprite.Sprite):
 
 class POWERUP(pygame.sprite.Sprite):
     def __init__(self, game, x, y):
+        print(x,y)
         self.game = game
         self._layer = BLOCK_LAYER
-        self.groups = self.game.all_sprites, self.game.powerup
+        self.groups = self.game.all_sprites,self.game.powerup
         pygame.sprite.Sprite.__init__(self, self.groups)
 
         self.x = x * BOXSIZE
