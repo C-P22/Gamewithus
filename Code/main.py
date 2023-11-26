@@ -4,13 +4,14 @@ from config import *
 import sys
 import turtle
 from labrinth_generator import Maze
-
+#from light_generator import Light
 class Game:
     def __init__(self):
         pygame.init()
         self.screen = pygame.display.set_mode((WIN_WIDTH,WIN_HEIGHT))
         self.clock = pygame.time.Clock() #framerate
         self.running = True 
+        self.x = 0 
         #self.overlay = pygame.Surface((WIN_WIDTH, WIN_HEIGHT), pygame.SRCALPHA)
         #self.overlay.fill((0, 0, 0, 128))    
 
@@ -47,6 +48,8 @@ class Game:
         self.screen.fill(BLACK)
         ''''''''''
         self.all_sprites.draw(self.screen)
+        '''
+        
         
         camera_offset = [0,0]
         # Update camera offset to center on the player
@@ -57,14 +60,21 @@ class Game:
         for sprite in self.all_sprites:
             sprite.rect.x += camera_offset[0]
             sprite.rect.y += camera_offset[1]
-        '''
+        
         self.all_sprites.draw(self.screen)
 
         # Reset sprite positions after drawing
         #for sprite in self.all_sprites:
          #   sprite.rect.x -= camera_offset[0]
           #  sprite.rect.y -= camera_offset[1]
-
+        
+        #ligth = Light(True,300)
+   
+        x = random.randint(0,9)
+        self.x = x 
+        image = pygame.image.load(f"Code/img/light/{self.x}.png")
+        image_rect =image.get_rect()
+        self.screen.blit(image, image_rect)
         self.clock.tick(FPS)
         pygame.display.update()
         self.clock.tick(FPS)

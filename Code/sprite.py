@@ -48,24 +48,24 @@ class Player(pygame.sprite.Sprite):
         else:
 
             if key[pygame.K_LEFT]:
-                #for sprite in self.game.all_sprites:
-                #    sprite.rect.x += PLAYER_SPEED
+                for sprite in self.game.all_sprites:
+                    sprite.rect.x += PLAYER_SPEED
                     
                 self.x_change -= PLAYER_SPEED
                 self.facing = 'left'
             if key[pygame.K_RIGHT]:
-                #for sprite in self.game.all_sprites:
-                #    sprite.rect.x  -= PLAYER_SPEED
+                for sprite in self.game.all_sprites:
+                    sprite.rect.x  -= PLAYER_SPEED
                 self.x_change += PLAYER_SPEED
                 self.facing = 'right'
             if key[pygame.K_UP]:
-                #for sprite in self.game.all_sprites:
-                #   sprite.rect.y += PLAYER_SPEED
+                for sprite in self.game.all_sprites:
+                   sprite.rect.y += PLAYER_SPEED
                 self.y_change -= PLAYER_SPEED
                 self.facing = 'up'
             if key[pygame.K_DOWN]:
-                #for sprite in self.game.all_sprites:
-                #   sprite.rect.y -= PLAYER_SPEED
+                for sprite in self.game.all_sprites:
+                   sprite.rect.y -= PLAYER_SPEED
                 self.y_change += PLAYER_SPEED
                 self.facing = 'down'
     def collide_block(self,direction):
@@ -76,23 +76,23 @@ class Player(pygame.sprite.Sprite):
             if hits:
                 if self.x_change > 0:
                     self.rect.x = hits[0].rect.left -self.rect.width# wir setzen self.rect.x zu Linke Ecke und dann rechenn wir minus width von unserem player
-                    #for sprite in self.game.all_sprites:
-                    #    sprite.rect.x += PLAYER_SPEED 
+                    for sprite in self.game.all_sprites:
+                        sprite.rect.x += PLAYER_SPEED 
                 if self.x_change < 0:  
                     self.rect.x = hits[0].rect.right# wir setzen self.rect.x zur rechten Ecke steht genau neben dran  
-                    #for sprite in self.game.all_sprites:
-                    #    sprite.rect.x -= PLAYER_SPEED 
+                    for sprite in self.game.all_sprites:
+                        sprite.rect.x -= PLAYER_SPEED 
         if direction == "y":
             hits = pygame.sprite.spritecollide(self,self.game.blocks,False) # prüft obt die rect zweier Sprites miteinander collidieren 
             if hits:
                 if self.y_change > 0:
                     self.rect.y = hits[0].rect.top -self.rect.height# wir setzen self.rect.x zu Linke Ecke und dann rechenn wir minus width von unserem player
-                    #for sprite in self.game.all_sprites:
-                    # #   sprite.rect.y += PLAYER_SPEED 
+                    for sprite in self.game.all_sprites:
+                        sprite.rect.y += PLAYER_SPEED 
                 if self.y_change < 0:  
                     self.rect.y = hits[0].rect.bottom # wir setzen self.rect.x zu Linke Ecke und dann rechenn wir minus width von unserem player
-                    #for sprite in self.game.all_sprites:
-                    #    sprite.rect.y -= PLAYER_SPEED 
+                    for sprite in self.game.all_sprites:
+                        sprite.rect.y -= PLAYER_SPEED 
 class Block(pygame.sprite.Sprite):
     def __init__(self,game,x,y,transparent):
         self.game = game 
@@ -107,9 +107,9 @@ class Block(pygame.sprite.Sprite):
         self.y = y * BOXSIZE
         self.width = BOXSIZE
         self.height= BOXSIZE
-        image_to_load = pygame.image.load(r"C:\Users\carlc\OneDrive\Dokumente\GitHub\Gamewithus\Code\img\bestwall.png")
+        image_to_load = pygame.image.load("Code/img/bestwall.png")
         self.image = pygame.Surface([self.width,self.height])
-        self.image.blit(image_to_load,(0,0))
+        self.image.fill(SAND)
 
         self.rect = self.image.get_rect()
         self.rect_change_x = 0
@@ -127,7 +127,7 @@ class Floor(pygame.sprite.Sprite):
         self.y = y * BOXSIZE
         self.width = BOXSIZE
         self.height= BOXSIZE
-        image_to_load = pygame.image.load(r"C:\Users\carlc\OneDrive\Dokumente\GitHub\Gamewithus\Code\img\floor.png")
+        image_to_load = pygame.image.load("Code/img/floorbig.png")
         self.image = pygame.Surface([self.width,self.height])
         self.image.blit(image_to_load,(0,0))
 
