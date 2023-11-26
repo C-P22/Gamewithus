@@ -22,7 +22,7 @@ class Game:
         self.enemies= pygame.sprite.LayeredUpdates()
         self.attacks= pygame.sprite.LayeredUpdates()
         ##self.player = Player(self,1,2)
-        self.create_level()        self.create_level()
+        self.create_level() 
     def update(self):
         self.all_sprites.update()
     def create_level(self):
