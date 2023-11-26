@@ -87,12 +87,33 @@ class Block(pygame.sprite.Sprite):
         self.x = x * BOXSIZE
         self.y = y * BOXSIZE
         self.width = BOXSIZE
+<<<<<<< Updated upstream
         self.height = BOXSIZE
 
         self.image = pygame.Surface([self.width, self.height])
         self.image.fill(SAND)
+=======
+        self.height= BOXSIZE
+        image_to_load = pygame.image.load("img/bestwall.png")
+        self.image = pygame.Surface([self.width,self.height])
+        self.image.blit(image_to_load,(0,0))
+>>>>>>> Stashed changes
 
         self.rect = self.image.get_rect()
 
+<<<<<<< Updated upstream
+=======
+        self.x = x*BOXSIZE
+        self.y = y * BOXSIZE
+        self.width = BOXSIZE
+        self.height= BOXSIZE
+        image_to_load = pygame.image.load("img/floor.png")
+        self.image = pygame.Surface([self.width,self.height])
+        self.image.blit(image_to_load,(0,0))
+
+        self.rect = self.image.get_rect()
+        self.rect_change_x = 0
+        self.rect_change_y = 0 
+>>>>>>> Stashed changes
         self.rect.x = self.x
         self.rect.y = self.y
