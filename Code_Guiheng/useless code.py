@@ -31,7 +31,6 @@ while run:
 
     col = GREEN
     if rect_1.collidelist(obstacles) >= 0:
-        print(rect_1.collidelist(obstacles))
         col = RED
 
     pos = pygame.mouse.get_pos()

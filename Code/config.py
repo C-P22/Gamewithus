@@ -8,6 +8,18 @@ PLAYER_LAYER = 2
 BLOCK_LAYER = 1
 
 PLAYER_SPEED = 3
+
+
+def CURRENT_SPEED():
+    return PLAYER_SPEED
+
+
+def NEW_SPEED():
+    global PLAYER_SPEED
+    PLAYER_SPEED += 2
+    return PLAYER_SPEED
+
+
 RED = (255, 0, 0)
 BLACK = (0, 0, 0)
 SAND = (194, 178, 128)

@@ -1,10 +1,7 @@
 import pygame
 from config import *
-<<<<<<< HEAD
-=======
 import random
 
->>>>>>> 9925be4eb69e9453939c6b0a3e2141fac9c36efc
 
 
 class Player(pygame.sprite.Sprite):
@@ -42,20 +39,25 @@ class Player(pygame.sprite.Sprite):
     def movement(self):
         key = pygame.key.get_pressed()  # checks which keys are being pressed
         if key[pygame.K_LEFT]:
-            self.x_change -= PLAYER_SPEED
+            self.x_change -= CURRENT_SPEED()
             self.facing = 'left'
         if key[pygame.K_RIGHT]:
-            self.x_change += PLAYER_SPEED
+            self.x_change += CURRENT_SPEED()
             self.facing = 'right'
         if key[pygame.K_UP]:
-            self.y_change -= PLAYER_SPEED
+            self.y_change -= CURRENT_SPEED()
             self.facing = 'up'
         if key[pygame.K_DOWN]:
-            self.y_change += PLAYER_SPEED
+            self.y_change += CURRENT_SPEED()
             self.facing = 'down'
 
     def collide_powerup(self):
         collide = pygame.sprite.spritecollide(self, self.game.powerup,True)
+        if collide:
+            print("collide")
+            NEW_SPEED()
+            print(PLAYER_SPEED)
+
 
     def collide_block(self, direction):
         if direction == "x":
