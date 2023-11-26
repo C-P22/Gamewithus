@@ -39,6 +39,8 @@ class Game:
                     if x == 0:
 
                         Block(self,j,i,False)
+                    elif x == 1:
+                        Block(self,j,i, True)
                     else:
                         Floor(self,j,i)
     

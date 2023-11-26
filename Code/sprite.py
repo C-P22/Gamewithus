@@ -68,6 +68,13 @@ class Player(pygame.sprite.Sprite):
                 #   sprite.rect.y -= PLAYER_SPEED
                 self.y_change += PLAYER_SPEED
                 self.facing = 'down'
+
+    def collide_powerup(self):
+        collide = pygame.sprite.spritecollide(self, self.game.powerup,True)
+        if collide:
+            print("collide")
+            NEW_SPEED()
+            print(PLAYER_SPEED)
     def collide_block(self,direction):
 
         if direction == "x":
@@ -107,7 +114,7 @@ class Block(pygame.sprite.Sprite):
         self.y = y * BOXSIZE
         self.width = BOXSIZE
         self.height= BOXSIZE
-        image_to_load = pygame.image.load(r"C:\Users\carlc\OneDrive\Dokumente\GitHub\Gamewithus\Code\img\bestwall.png")
+        image_to_load = pygame.image.load(r"img/bestwall.png")
         self.image = pygame.Surface([self.width,self.height])
         self.image.blit(image_to_load,(0,0))
 
@@ -127,7 +134,7 @@ class Floor(pygame.sprite.Sprite):
         self.y = y * BOXSIZE
         self.width = BOXSIZE
         self.height= BOXSIZE
-        image_to_load = pygame.image.load(r"C:\Users\carlc\OneDrive\Dokumente\GitHub\Gamewithus\Code\img\floor.png")
+        image_to_load = pygame.image.load(r"img/floor.png")
         self.image = pygame.Surface([self.width,self.height])
         self.image.blit(image_to_load,(0,0))
 
