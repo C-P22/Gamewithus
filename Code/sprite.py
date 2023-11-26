@@ -35,6 +35,7 @@ class Player(pygame.sprite.Sprite):
         self.collide_block('y')
         self.x_change = 0
         self.y_change = 0
+        self.collide_powerup()
 
     def movement(self):
         key = pygame.key.get_pressed()  # checks which keys are being pressed
@@ -50,6 +51,9 @@ class Player(pygame.sprite.Sprite):
         if key[pygame.K_DOWN]:
             self.y_change += PLAYER_SPEED
             self.facing = 'down'
+
+    def collide_powerup(self):
+        collide = pygame.sprite.spritecollide(self,self.game.powerup,True)
 
     def collide_block(self, direction):
         if direction == "x":
@@ -87,33 +91,35 @@ class Block(pygame.sprite.Sprite):
         self.x = x * BOXSIZE
         self.y = y * BOXSIZE
         self.width = BOXSIZE
-<<<<<<< Updated upstream
         self.height = BOXSIZE
 
         self.image = pygame.Surface([self.width, self.height])
         self.image.fill(SAND)
-=======
-        self.height= BOXSIZE
-        image_to_load = pygame.image.load("img/bestwall.png")
-        self.image = pygame.Surface([self.width,self.height])
-        self.image.blit(image_to_load,(0,0))
->>>>>>> Stashed changes
 
         self.rect = self.image.get_rect()
 
-<<<<<<< Updated upstream
-=======
-        self.x = x*BOXSIZE
-        self.y = y * BOXSIZE
-        self.width = BOXSIZE
-        self.height= BOXSIZE
-        image_to_load = pygame.image.load("img/floor.png")
-        self.image = pygame.Surface([self.width,self.height])
-        self.image.blit(image_to_load,(0,0))
-
-        self.rect = self.image.get_rect()
-        self.rect_change_x = 0
-        self.rect_change_y = 0 
->>>>>>> Stashed changes
         self.rect.x = self.x
         self.rect.y = self.y
+
+
+class POWERUP(pygame.sprite.Sprite):
+    def __init__(self, game, x, y):
+        self.game = game
+        self._layer = BLOCK_LAYER
+        self.groups = self.game.all_sprites, self.game.powerup
+        pygame.sprite.Sprite.__init__(self, self.groups)
+
+        self.x = x * BOXSIZE
+        self.y = y * BOXSIZE
+        self.width = BOXSIZE
+        self.height = BOXSIZE
+
+        self.image = pygame.Surface([self.width, self.height])
+        self.image.fill(BOOST)
+
+        self.rect = self.image.get_rect()
+
+        self.rect.x = self.x
+        self.rect.y = self.y
+
+

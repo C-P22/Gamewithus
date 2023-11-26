@@ -15,7 +15,8 @@ class Game:
     def new(self):
         # when a new game starts 
         self.playing = True
-        self.all_sprites = pygame.sprite.LayeredUpdates()  # hier können wir unsere Sprites reintun
+        self.all_sprites = pygame.sprite.LayeredUpdates()# hier können wir unsere Sprites reintun
+        self.powerup = pygame.sprite.LayeredUpdates()
         self.blocks = pygame.sprite.LayeredUpdates()
         self.enemies = pygame.sprite.LayeredUpdates()
         self.attacks = pygame.sprite.LayeredUpdates()
