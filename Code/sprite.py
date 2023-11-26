@@ -1,8 +1,5 @@
 import pygame
-import math
 from config import *
-import random
-from powerup import *
 
 
 class Player(pygame.sprite.Sprite):
@@ -57,7 +54,7 @@ class Player(pygame.sprite.Sprite):
 
     def collide_block(self, direction):
         if direction == "x":
-            # False ist ob wir den Sprite llschen wollen 
+            # False ist ob wir den Sprite löschen wollen
             hits = pygame.sprite.spritecollide(self, self.game.blocks,
                                                False)  # prüft obt die rect zweier Sprites miteinander collidieren
             if hits:

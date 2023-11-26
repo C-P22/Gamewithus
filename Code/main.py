@@ -1,8 +1,7 @@
-import pygame
 from sprite import *
 from config import *
 import sys
-from powerup import *
+from Code_Guiheng.powerup import *
 
 
 class Game:
