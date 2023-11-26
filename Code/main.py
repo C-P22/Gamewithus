@@ -1,7 +1,11 @@
 from sprite import *
 from config import *
 import sys
+<<<<<<< HEAD
 from Code_Guiheng.powerup import *
+=======
+
+>>>>>>> 9925be4eb69e9453939c6b0a3e2141fac9c36efc
 
 
 class Game:
@@ -33,6 +37,7 @@ class Game:
                 if colum == "P":
                     Player(self, j, i)
                 if colum == "B":
+                    print(j,i)
                     POWERUP(self, j, i)
 
     def draw(self):
