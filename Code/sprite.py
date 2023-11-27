@@ -187,3 +187,6 @@ class Portal(Block):
         self.groups = self.game.all_sprites, self.game.portal
         pygame.sprite.Sprite.__init__(self, self.groups)
         Block.get_form_img(self, "img/portal.png")
+
+
+class Enemy:
