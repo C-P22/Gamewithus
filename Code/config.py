@@ -2,7 +2,7 @@ WIN_WIDTH = 800
 WIN_HEIGHT = 800
 TILESIZE = 80
 BOXSIZE = 100
-FPS = 60  # framrate
+FPS = 60  # frame rate
 
 PLAYER_LAYER = 2
 BLOCK_LAYER = 1
