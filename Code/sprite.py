@@ -8,15 +8,9 @@ class Player(pygame.sprite.Sprite):
 
     def __init__(self, game, x, y):
         self.game = game
-<<<<<<< Updated upstream
-        self._layer = PLAYER_LAYER  # important when we have more objekts so we know which is on top of which
-        self.groups = self.game.all_sprites  # add it to all sprite group# add it to all sprite group
-        pygame.sprite.Sprite.__init__(self, self.groups)
-=======
         self._layer = PLAYER_LAYER # important when we have more objekts so we know which is on top of which
         self.groups = self.game.all_sprites,self.game.player# add it to all sprite group# add it to all sprite group
         pygame.sprite.Sprite.__init__(self,self.groups)
->>>>>>> Stashed changes
 
         self.x = x * BOXSIZE
         self.y = y * BOXSIZE
@@ -47,14 +41,12 @@ class Player(pygame.sprite.Sprite):
             pass
         else:
             self.collide_block('y')
-<<<<<<< Updated upstream
         self.x_change = 0
         self.y_change = 0
 
-=======
         self.x_change = 0 
         self.y_change = 0
-
+        self.collide_powerup()
         if self.collide_portal():
             return True
         return False 
@@ -64,7 +56,7 @@ class Player(pygame.sprite.Sprite):
         if hits:
             return True 
         return False
->>>>>>> Stashed changes
+        
     def movement(self):
         key = pygame.key.get_pressed()  # checks which keys are being pressed
         if key[pygame.K_g]:  # freeze
@@ -103,9 +95,9 @@ class Player(pygame.sprite.Sprite):
     def collide_block(self, direction):
 
         if direction == "x":
-            # False ist, ob wir den Sprite löschen wollen
+            # False ist, ob wir der Sprite löschen wollen
             hits = pygame.sprite.spritecollide(self, self.game.blocks,
-                                               False)  # prüft obt die rect zweier Sprites miteinander kollidieren
+                                               False)  # prüft ob die rect zweier Sprites miteinander kollidieren
             if hits:
                 if self.x_change > 0:
                     self.rect.x = hits[
@@ -133,96 +125,42 @@ class Player(pygame.sprite.Sprite):
 
 
 class Block(pygame.sprite.Sprite):
-<<<<<<< Updated upstream
-    def __init__(self, game, x, y, transparent):
-        self.game = game
-        self._layer = BLOCK_LAYER
-        if transparent:
-            self.groups = self.game.all_sprites, self.game.blocks
-        else:
-            self.groups = self.game.all_sprites
-        pygame.sprite.Sprite.__init__(self, self.groups)
-
-        self.x = x * BOXSIZE
-        self.y = y * BOXSIZE
-        self.width = BOXSIZE
-        self.height = BOXSIZE
-        image_to_load = pygame.image.load(r"img/bestwall.png")
-        self.image = pygame.Surface([self.width, self.height])
-        self.image.blit(image_to_load, (0, 0))
-
-        self.rect = self.image.get_rect()
-        self.rect_change_x = 0
-        self.rect_change_y = 0
-        self.rect.x = self.x
-        self.rect.y = self.y
-
-
-class Floor(pygame.sprite.Sprite):
-    def __init__(self, game, x, y):
-        self.game = game
-        self._layer = BLOCK_LAYER
-        self.groups = self.game.all_sprites
-        pygame.sprite.Sprite.__init__(self, self.groups)
-=======
     def __init__(self,game,x,y):
         self.game = game 
         self._layer = BLOCK_LAYER
-        
->>>>>>> Stashed changes
-
         self.x = x * BOXSIZE
         self.y = y * BOXSIZE
         self.width = BOXSIZE
-<<<<<<< Updated upstream
+
         self.height = BOXSIZE
-        image_to_load = pygame.image.load(r"img/floor.png")
-        self.image = pygame.Surface([self.width, self.height])
-        self.image.blit(image_to_load, (0, 0))
-=======
-        self.height= BOXSIZE
+
     def get_form_img(self,Path):
         image_to_load = pygame.image.load(Path)
         self.image = pygame.Surface([self.width,self.height])
         self.image.blit(image_to_load,(0,0))
->>>>>>> Stashed changes
 
         self.rect = self.image.get_rect()
         self.rect_change_x = 0
         self.rect_change_y = 0
         self.rect.x = self.x
-<<<<<<< Updated upstream
         self.rect.y = self.y
-
-
-class Powerup(pygame.sprite.Sprite):
-    def __init__(self, game, x, y):
-        print(x, y)
-        self.game = game
-        self._layer = BLOCK_LAYER
-        self.groups = self.game.all_sprites, self.game.powerup
-        pygame.sprite.Sprite.__init__(self, self.groups)
-
-        self.x = x * BOXSIZE
-        self.y = y * BOXSIZE
-        self.width = BOXSIZE
-        self.height = BOXSIZE
-
-        self.image = pygame.Surface([self.width, self.height])
-        self.image.fill(BOOST)
-
-        self.rect = self.image.get_rect()
-
-        self.rect.x = self.x
-        self.rect.y = self.y
-=======
-        self.rect.y = self.y 
     def get_form_colour(self,Color):
         self.image = pygame.Surface([self.width,self.height])
         self.image.fill(Color)
         self.rect = self.image.get_rect()
         self.rect.x = self.x
         self.rect.y = self.y
+
+class Powerup(Block):
+    def __init__(self, game, x, y):
+        Block.__init__(self,game,x,y)
+       
+        self.groups = self.game.all_sprites, self.game.powerup
+        pygame.sprite.Sprite.__init__(self, self.groups)
+        Block.get_form_colour(self,BOOST)
+        
+
+    
 
 class Wall(Block):
     def __init__(self,game,x,y,transparent):
@@ -247,4 +185,3 @@ class Portal(Block):
         self.groups = self.game.all_sprites,self.game.portal
         pygame.sprite.Sprite.__init__(self,self.groups)
         Block.get_form_img(self,"img/portal.png")
->>>>>>> Stashed changes

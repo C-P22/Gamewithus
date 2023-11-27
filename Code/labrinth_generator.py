@@ -9,7 +9,7 @@ class Maze:
     WALL = "X"
     PATH = "."
     PLAYER = "P"
-    VISITED = "V"  # is important for the maze generator so if a stone is the neigbor of two other stonew make it a wall
+    VISITED = "V"  # is important for the maze generator so if a stone is the neighbor of two other stones make it a wall
     END = "E"
 
     def __init__(self, length, width, y_player, x_player):
@@ -49,7 +49,7 @@ class Maze:
             if x_ne == 0 or x_ne == self.length - 1 or y_ne == 0 or y_ne == self.width - 1:
                 self.maze[y_ne][x_ne] = Maze.WALL
             else:
-                luck = random.randint(0, 30)  # jeder xte Block hat die schongs doch noch ein Path zu werden
+                luck = random.randint(0, 30)  # jeder xte Block hat die Chance doch noch ein Path zu werden
                 if self.maze[y_ne][x_ne] == 'u' or self.maze[y_ne][x_ne] == 'V' or luck == 0:
                     self.dfs_search(y_ne, x_ne)
 # g = Maze(15,10,10//2,1)
