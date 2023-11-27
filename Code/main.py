@@ -45,12 +45,11 @@ class Game:
                     self.player = Player(self,j,i)
                     Floor(self,j,i)
                 if colum == ".":
-                    x = random.randint(0,10)
-                    if x == 0:
-
+                    x = random.randint(0,50)
+                    if x < 10:
                         Wall(self,j,i,False)
-                    if x == 1:
-
+                    if x == 10:
+                        Floor(self, j, i)
                         Powerup(self,j,i)
                     else:
                         Floor(self,j,i)

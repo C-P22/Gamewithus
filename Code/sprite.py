@@ -88,9 +88,7 @@ class Player(pygame.sprite.Sprite):
     def collide_powerup(self):
         collide = pygame.sprite.spritecollide(self, self.game.powerup, True)
         if collide:
-            print("collide")
             NEW_SPEED()
-            print(PLAYER_SPEED)
 
     def collide_block(self, direction):
 
