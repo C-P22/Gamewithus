@@ -4,11 +4,14 @@ from config import *
 import sys
 import turtle
 from labrinth_generator import Maze
+import sound_handler
 
 
 class Game:
     def __init__(self):
         pygame.init()
+        pygame.mixer.init()
+        sound_handler.SoundHandler.play_level_soundtrack()
         self.screen = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT))
         self.clock = pygame.time.Clock()  # frame rate
         self.running = True
