@@ -43,7 +43,7 @@ class Player(pygame.sprite.Sprite):
             self.collide_block('y')
         self.x_change = 0
         self.y_change = 0
-
+        self.collide_powerup()
     def movement(self):
         key = pygame.key.get_pressed()  # checks which keys are being pressed
         if key[pygame.K_g]:  # freeze
@@ -82,9 +82,9 @@ class Player(pygame.sprite.Sprite):
     def collide_block(self, direction):
 
         if direction == "x":
-            # False ist, ob wir den Sprite löschen wollen
+            # False ist, ob wir der Sprite löschen wollen
             hits = pygame.sprite.spritecollide(self, self.game.blocks,
-                                               False)  # prüft obt die rect zweier Sprites miteinander kollidieren
+                                               False)  # prüft ob die rect zweier Sprites miteinander kollidieren
             if hits:
                 if self.x_change > 0:
                     self.rect.x = hits[

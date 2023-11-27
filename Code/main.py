@@ -39,11 +39,13 @@ class Game:
                     self.player = Player(self, j, i)
                     Floor(self, j, i)
                 if colum == ".":
-                    x = random.randint(0, 10)
-                    if x == 0:
+                    x = random.randint(0, 50)
+                    if x < 0:
                         Block(self, j, i, False)
-                    elif x == 1:
+                    elif x == 50:
+                        Floor(self, j, i)
                         Powerup(self, j, i)
+
                     else:
                         Floor(self, j, i)
 
