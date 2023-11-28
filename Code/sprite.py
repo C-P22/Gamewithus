@@ -4,7 +4,38 @@ from config import *
 import random
 
 
-class Player(pygame.sprite.Sprite):
+class Character:
+    def collide_block(self, direction):
+
+        if direction == "x":
+            # False ist, ob wir der Sprite löschen wollen
+            hits = pygame.sprite.spritecollide(self, self.game.blocks,
+                                               False)  # prüft, ob die rect zweier Sprites miteinander kollidieren
+            if hits:
+                if self.x_change > 0:
+                    self.rect.x = hits[
+                                      0].rect.left - self.rect.width  # wir setzen self.rect.x zu Linke Ecke und dann rechnen wir minus width von unserem player
+                    # for sprite in self.game.all_sprites:
+                    #    sprite.rect.x += PLAYER_SPEED
+                if self.x_change < 0:
+                    self.rect.x = hits[0].rect.right  # wir setzen self.rect.x zur rechten Ecke steht genau neben dran
+                    # for sprite in self.game.all_sprites:
+                    #    sprite.rect.x -= PLAYER_SPEED
+        if direction == "y":
+            hits = pygame.sprite.spritecollide(self, self.game.blocks,
+                                               False)  # prüft obt die rect zweier Sprites miteinander kollidieren
+            if hits:
+                if self.y_change > 0:
+                    self.rect.y = hits[
+                                      0].rect.top - self.rect.height  # wir setzen self.rect.x zu Linke Ecke und dann rechnen wir minus width von unserem player
+                    # for sprite in self.game.all_sprites:
+                    # #   sprite.rect.y += PLAYER_SPEED
+                if self.y_change < 0:
+                    self.rect.y = hits[
+                        0].rect.bottom  # wir setzen self.rect.x zu Linke Ecke und dann rechnen wir minus width von unserem player
+                    # for sprite in self.game.all_sprites:
+                    #    sprite.rect.y -= PLAYER_SPEED
+class Player(pygame.sprite.Sprite, Character):
 
     def __init__(self, game, x, y):
         self.game = game
@@ -28,6 +59,7 @@ class Player(pygame.sprite.Sprite):
 
     def update(self):
         self.movement()
+        self.collide_enemy()  # NEU
         key = pygame.key.get_pressed()
         self.rect.x += self.x_change
         if key[pygame.K_c]:
@@ -85,10 +117,18 @@ class Player(pygame.sprite.Sprite):
                 self.y_change += CURRENT_SPEED()
                 self.facing = 'down'
 
-    def collide_powerup(self):
+    def collide_powerup(self):  # NEUE FUNKTION
         collide = pygame.sprite.spritecollide(self, self.game.powerup, True)
         if collide:
             NEW_SPEED()
+
+    def collide_enemy(self):
+        hits = pygame.sprite.spritecollide(self, self.game.enemies, False)
+        if hits:
+            NEW_HEALTH()
+            if NEW_HEALTH() == 0:
+                self.kill()
+                self.game.playing = False
 
     def collide_block(self, direction):
 
@@ -101,11 +141,11 @@ class Player(pygame.sprite.Sprite):
                     self.rect.x = hits[
                                       0].rect.left - self.rect.width  # wir setzen self.rect.x zu Linke Ecke und dann rechnen wir minus width von unserem player
                     # for sprite in self.game.all_sprites:
-                    #    sprite.rect.x += PLAYER_SPEED 
+                    #    sprite.rect.x += PLAYER_SPEED
                 if self.x_change < 0:
                     self.rect.x = hits[0].rect.right  # wir setzen self.rect.x zur rechten Ecke steht genau neben dran
                     # for sprite in self.game.all_sprites:
-                    #    sprite.rect.x -= PLAYER_SPEED 
+                    #    sprite.rect.x -= PLAYER_SPEED
         if direction == "y":
             hits = pygame.sprite.spritecollide(self, self.game.blocks,
                                                False)  # prüft obt die rect zweier Sprites miteinander kollidieren
@@ -114,12 +154,12 @@ class Player(pygame.sprite.Sprite):
                     self.rect.y = hits[
                                       0].rect.top - self.rect.height  # wir setzen self.rect.x zu Linke Ecke und dann rechnen wir minus width von unserem player
                     # for sprite in self.game.all_sprites:
-                    # #   sprite.rect.y += PLAYER_SPEED 
+                    # #   sprite.rect.y += PLAYER_SPEED
                 if self.y_change < 0:
                     self.rect.y = hits[
                         0].rect.bottom  # wir setzen self.rect.x zu Linke Ecke und dann rechnen wir minus width von unserem player
                     # for sprite in self.game.all_sprites:
-                    #    sprite.rect.y -= PLAYER_SPEED 
+                    #    sprite.rect.y -= PLAYER_SPEED
 
 
 class Block(pygame.sprite.Sprite):
@@ -187,3 +227,53 @@ class Portal(Block):
         self.groups = self.game.all_sprites, self.game.portal
         pygame.sprite.Sprite.__init__(self, self.groups)
         Block.get_form_img(self, "img/portal.png")
+
+
+class Enemy(pygame.sprite.Sprite):  # NEUE CLASS ERSTELLT
+    def __init__(self, game, x, y):
+
+        self.game = game
+        self._layer = ENEMY_LAYER
+        self.groups = self.game.all_sprites, self.game.enemies
+        pygame.sprite.Sprite.__init__(self, self.groups)
+
+        self.x = x * BOXSIZE
+        self.y = y * BOXSIZE
+        self.width = TILESIZE
+        self.height = TILESIZE
+
+        self.x_change = 0
+        self.y_change = 0
+
+        self.facing = random.choice(['left', 'right'])
+        self.animation_loop = 1
+        self.movement_loop = 0
+        self.max_travel = random.randint(30, 50)
+
+        self.image = pygame.Surface([self.width, self.height])
+        self.image.fill(ENEMY)
+
+        self.rect = self.image.get_rect()
+        self.rect.x = self.x
+        self.rect.y = self.y
+
+    def update(self):
+        self.movement()
+
+        self.rect.x += self.x_change
+        self.rect.y += self.y_change
+
+        self.x_change = 0
+        self.y_change = 0
+
+    def movement(self):
+        if self.facing == 'left':
+            self.x_change -= ENEMY_SPEED
+            self.movement_loop -= 1
+            if self.movement_loop <= -self.max_travel:
+                self.facing = 'right'
+        if self.facing == 'right':
+            self.x_change += ENEMY_SPEED
+            self.movement_loop += 1
+            if self.movement_loop >= self.max_travel:
+                self.facing = 'left'
