@@ -28,7 +28,7 @@ class Player(pygame.sprite.Sprite):
 
     def update(self):
         self.movement()
-        self.collide_enemy()    # NEU
+        self.collide_enemy()  # NEU
         key = pygame.key.get_pressed()
         self.rect.x += self.x_change
         if key[pygame.K_c]:
@@ -94,8 +94,11 @@ class Player(pygame.sprite.Sprite):
     def collide_enemy(self):
         hits = pygame.sprite.spritecollide(self, self.game.enemies, False)
         if hits:
-            self.kill()
-            self.game.playing = False
+            NEW_HEALTH()
+            if NEW_HEALTH() == 0:
+                self.kill()
+                self.game.playing = False
+
     def collide_block(self, direction):
 
         if direction == "x":
@@ -243,4 +246,3 @@ class Enemy(pygame.sprite.Sprite):  # NEUE CLASS ERSTELLT
             self.movement_loop += 1
             if self.movement_loop >= self.max_travel:
                 self.facing = 'left'
-
