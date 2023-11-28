@@ -61,27 +61,31 @@ class Player(pygame.sprite.Sprite, Character):
         self.movement()
         self.collide_enemy()  # NEU
         key = pygame.key.get_pressed()
-        self.rect.x += self.x_change
-        if key[pygame.K_c]:
-            pass
-        else:
-            self.collide_block('x')
+        self.collide_tile(key[pygame.K_c], 7)
 
-        self.rect.y += self.y_change
-
-        if key[pygame.K_c]:
-            pass
-        else:
-            self.collide_block('y')
-        self.x_change = 0
-        self.y_change = 0
-
-        self.x_change = 0
-        self.y_change = 0
         self.collide_powerup()
         if self.collide_portal():
             return True
         return False
+
+    def collide_tile(self, ignore_walls, sub_step_count):
+        if ignore_walls:
+            self.rect.x += self.x_change
+            self.rect.y += self.y_change
+
+            self.x_change = 0
+            self.y_change = 0
+            return
+         
+        for i in range(sub_step_count):
+            self.rect.x += self.x_change / sub_step_count
+            self.collide_block('x')
+
+            self.rect.y += self.y_change / sub_step_count
+            self.collide_block('y')
+
+        self.x_change = 0
+        self.y_change = 0
 
     def collide_portal(self):
         hits = pygame.sprite.spritecollide(self, self.game.portal, False)
@@ -138,8 +142,7 @@ class Player(pygame.sprite.Sprite, Character):
                                                False)  # prüft, ob die rect zweier Sprites miteinander kollidieren
             if hits:
                 if self.x_change > 0:
-                    self.rect.x = hits[
-                                      0].rect.left - self.rect.width  # wir setzen self.rect.x zu Linke Ecke und dann rechnen wir minus width von unserem player
+                    self.rect.x = hits[0].rect.left - self.rect.width  # wir setzen self.rect.x zu Linke Ecke und dann rechnen wir minus width von unserem player
                     # for sprite in self.game.all_sprites:
                     #    sprite.rect.x += PLAYER_SPEED
                 if self.x_change < 0:
@@ -151,13 +154,11 @@ class Player(pygame.sprite.Sprite, Character):
                                                False)  # prüft obt die rect zweier Sprites miteinander kollidieren
             if hits:
                 if self.y_change > 0:
-                    self.rect.y = hits[
-                                      0].rect.top - self.rect.height  # wir setzen self.rect.x zu Linke Ecke und dann rechnen wir minus width von unserem player
+                    self.rect.y = hits[0].rect.top - self.rect.height  # wir setzen self.rect.x zu Linke Ecke und dann rechnen wir minus width von unserem player
                     # for sprite in self.game.all_sprites:
                     # #   sprite.rect.y += PLAYER_SPEED
                 if self.y_change < 0:
-                    self.rect.y = hits[
-                        0].rect.bottom  # wir setzen self.rect.x zu Linke Ecke und dann rechnen wir minus width von unserem player
+                    self.rect.y = hits[0].rect.bottom  # wir setzen self.rect.x zu Linke Ecke und dann rechnen wir minus width von unserem player
                     # for sprite in self.game.all_sprites:
                     #    sprite.rect.y -= PLAYER_SPEED
 
@@ -218,7 +219,7 @@ class Floor(Block):
 
         self.groups = self.game.all_sprites
         pygame.sprite.Sprite.__init__(self, self.groups)
-        Block.get_form_img(self, "img/floorbig.png")
+        Block.get_form_img(self, "Code/img/floorbig.png")
 
 
 class Portal(Block):
@@ -226,7 +227,7 @@ class Portal(Block):
         Block.__init__(self, game, x, y)
         self.groups = self.game.all_sprites, self.game.portal
         pygame.sprite.Sprite.__init__(self, self.groups)
-        Block.get_form_img(self, "img/portal.png")
+        Block.get_form_img(self, "Code/img/portal.png")
 
 
 class Enemy(pygame.sprite.Sprite):  # NEUE CLASS ERSTELLT
