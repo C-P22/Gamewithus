@@ -106,8 +106,7 @@ class Player(pygame.sprite.Sprite):
                                                False)  # prüft ob die rect zweier Sprites miteinander kollidieren
             if hits:
                 if self.x_change > 0:
-                    self.rect.x = hits[
-                                      0].rect.left - self.rect.width  # wir setzen self.rect.x zu Linke Ecke und dann rechnen wir minus width von unserem player
+                    self.rect.x = hits[0].rect.left - self.rect.width  # wir setzen self.rect.x zu Linke Ecke und dann rechnen wir minus width von unserem player
                     # for sprite in self.game.all_sprites:
                     #    sprite.rect.x += PLAYER_SPEED 
                 if self.x_change < 0:
@@ -205,11 +204,26 @@ class Wepon(pygame.sprite.Sprite):
         self.height = 10
         self.groups = self.game.all_sprites, self.game.weapons
         pygame.sprite.Sprite.__init__(self, self.groups)
-        self.image = pygame.Surface([self.width,self.height])
-        self.image.fill((255,255,0))
+        self.load(False)
+
         self.rect = self.image.get_rect()
         self.rect.x = self.x
         self.rect.y = self.y
     def update(self):
+
         self.rect.x = 400
         self.rect.y = 400
+        self.load(False)
+        self.attack()
+    def attack(self):
+        key = pygame.key.get_pressed()
+        if key[pygame.K_PAGEUP]:
+            print("weopon ready")
+            self.load(True)
+    def load(self,Direction):
+        if Direction:
+            self.image = pygame.Surface([self.height,self.width])
+            self.image.fill((255,255,0))
+        else:
+            self.image = pygame.Surface([self.width,self.height])
+            self.image.fill((255,255,0))
