@@ -210,11 +210,11 @@ class Wepon(pygame.sprite.Sprite):
         self.rect.x = self.x
         self.rect.y = self.y
     def update(self):
-
-        self.rect.x = 400
-        self.rect.y = 400
         self.load(False)
         self.attack()
+        self.rect.x = 400
+        self.rect.y = 400
+
     def attack(self):
         key = pygame.key.get_pressed()
         if key[pygame.K_PAGEUP]:
