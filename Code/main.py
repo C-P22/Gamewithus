@@ -30,6 +30,7 @@ class Game:
         self.player = pygame.sprite.LayeredUpdates()
         self.powerup =  pygame.sprite.LayeredUpdates()
         self.weapons =  pygame.sprite.LayeredUpdates()
+        self.destroyable =  pygame.sprite.LayeredUpdates()
         ##self.player = Player(self,1,2)
         self.create_level(self.labrinth_lenght,self.labrinth_wigth) 
     def update(self):
@@ -37,25 +38,30 @@ class Game:
             self.labrinth_lenght += 3
             self.labrinth_wigth += 3
             self.new()
+        self.blocks.update()
         #self.weapons.update()
     def create_level(self,lenght,wigth):
         level = Maze(lenght,wigth,lenght//2,wigth//2)
         for i,row in enumerate(level.maze):
             for j,colum in enumerate(row):
+                Floor(self,j,i)
                 if colum =="X":
                     Wall(self,j,i,True)
                 if colum == "P":
                     self.player = Player(self,j,i)
                     Floor(self,j,i) 
                 if colum == ".":
+                    
                     x = random.randint(0,50)
+                
                     if x < 10:
+                        
+
                         Wall(self,j,i,False)
-                    if x == 10:
-                        Floor(self, j, i)
+                    elif x == 10:
+
                         Powerup(self,j,i)
-                    else:
-                        Floor(self,j,i)
+
                 if colum == "E":
                     Floor(self,j,i)
                     Portal(self,j,i) 
