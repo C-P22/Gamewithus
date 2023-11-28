@@ -36,6 +36,7 @@ class Game:
             self.labrinth_length += 3
             self.labrinth_width += 3
             self.new()
+        self.enemies.update()
 
     def create_level(self, lenght, wigth):
         level = Maze(lenght, wigth, lenght // 2, wigth // 2)
@@ -50,9 +51,12 @@ class Game:
                     x = random.randint(0, 50)
                     if x < 10:
                         Wall(self, j, i, False)
-                    if x == 10:
+                    elif x == 10:
                         Floor(self, j, i)
                         Powerup(self, j, i)
+                    elif x == 20:
+                        Floor(self, j, i)
+                        Enemy(self, j, i)
                     else:
                         Floor(self, j, i)
                 if colum == "E":
