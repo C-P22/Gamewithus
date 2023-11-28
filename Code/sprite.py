@@ -219,7 +219,7 @@ class Floor(Block):
 
         self.groups = self.game.all_sprites
         pygame.sprite.Sprite.__init__(self, self.groups)
-        Block.get_form_img(self, "Code/img/floorbig.png")
+        Block.get_form_img(self, "img/floorbig.png")
 
 
 class Portal(Block):
@@ -227,7 +227,7 @@ class Portal(Block):
         Block.__init__(self, game, x, y)
         self.groups = self.game.all_sprites, self.game.portal
         pygame.sprite.Sprite.__init__(self, self.groups)
-        Block.get_form_img(self, "Code/img/portal.png")
+        Block.get_form_img(self, "img/portal.png")
 
 
 class Enemy(pygame.sprite.Sprite):  # NEUE CLASS ERSTELLT

@@ -11,5 +11,5 @@ class SoundHandler():
 
     def play_level_soundtrack():
         pygame.mixer.music.stop()
-        pygame.mixer.music.load(level_music_file)
+        #pygame.mixer.music.load(level_music_file)
         #pygame.mixer.music.play(-1)
