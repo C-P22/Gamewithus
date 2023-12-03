@@ -105,6 +105,10 @@ class Game:
         key = pygame.key.get_pressed()  # checks which keys are being pressed
         if key[pygame.K_SPACE]:
             self.new()
+        if key[pygame.K_k]:
+            for sprite in self.destroyable:
+                sprite.killing()
+
     def main(self):
         while self.playing == True:
             self.events()

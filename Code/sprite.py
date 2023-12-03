@@ -20,7 +20,7 @@ class Player(pygame.sprite.Sprite):
         self.x_change = 0
         self.y_change = 0
         self.facing = "down"  # movements of the character
-        image_to_load = pygame.image.load("img/player/player_look_down.png")
+        image_to_load = pygame.image.load("code/img/player/player_look_down.png")
         self.image = pygame.Surface([self.width,self.height])
         self.image = self.image.convert_alpha()
         #self.image.set_colorkey(BLACK)
@@ -71,23 +71,23 @@ class Player(pygame.sprite.Sprite):
             pass
         else:
 
-            if key[pygame.K_LEFT]:
+            if key[pygame.K_LEFT] or key[pygame.K_a]:
                 # for sprite in self.game.all_sprites:
                 #    sprite.rect.x += PLAYER_SPEED
 
                 self.x_change -= CURRENT_SPEED()
                 self.facing = 'left'
-            if key[pygame.K_RIGHT]:
+            if key[pygame.K_RIGHT]or key[pygame.K_d]:
                 # for sprite in self.game.all_sprites:
                 #    sprite.rect.x  -= PLAYER_SPEED
                 self.x_change += CURRENT_SPEED()
                 self.facing = 'right'
-            if key[pygame.K_UP]:
+            if key[pygame.K_UP]or key[pygame.K_w]:
                 # for sprite in self.game.all_sprites:
                 #   sprite.rect.y += PLAYER_SPEED
                 self.y_change -= CURRENT_SPEED()
                 self.facing = 'up'
-            if key[pygame.K_DOWN]:
+            if key[pygame.K_DOWN]or key[pygame.K_s]:
                 # for sprite in self.game.all_sprites:
                 #   sprite.rect.y -= PLAYER_SPEED
                 self.y_change += CURRENT_SPEED()
@@ -160,7 +160,8 @@ class Block(pygame.sprite.Sprite):
         # Check if the object has no health left
         if self.health <= 0:
             self.kill()
-
+    def killing(self):
+        self.kill()
 class Powerup(Block):
     def __init__(self, game, x, y):
         Block.__init__(self,game,x,y)
@@ -188,13 +189,13 @@ class Floor(Block):
         
         self.groups = self.game.all_sprites,self.game.blocks
         pygame.sprite.Sprite.__init__(self,self.groups)
-        Block.get_form_img(self,"img/floorbig.png",False)
+        Block.get_form_img(self,"code/img/floorbig.png",False)
 class Portal(Block):
     def __init__(self,game,x,y):
         Block.__init__(self,game,x,y)
         self.groups = self.game.all_sprites,self.game.portal,self.game.blocks
         pygame.sprite.Sprite.__init__(self,self.groups)
-        Block.get_form_img(self,"img/portal.png",True)
+        Block.get_form_img(self,"code/img/portal.png",True)
 
 class Wepon(pygame.sprite.Sprite):
     def __init__(self,game,Player):
