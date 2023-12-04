@@ -3,8 +3,9 @@ from config import *
 
 
 class Block(pygame.sprite.Sprite):
-    def __init__(self, x, y, groups):
-        self._layer = BLOCK_LAYER
+    def __init__(self, x, y, groups, layer = BLOCK_LAYER):
+        # allow for overriding the layer
+        self._layer = layer
         self.x = x * TILE_SIZE
         self.y = y * TILE_SIZE
         self.width = TILE_SIZE
