@@ -4,14 +4,15 @@ from config import *
 import sys
 import turtle
 from labrinth_generator import Maze
-import sound_handler
+from sound_handler import *
+from light_system import *
 
 
 class Game:
     def __init__(self):
         pygame.init()
         pygame.mixer.init()
-        sound_handler.SoundHandler.play_level_soundtrack()
+        SoundHandler.play_level_soundtrack()
         self.screen = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT))
         self.clock = pygame.time.Clock()  # frame rate
         self.running = True
@@ -31,6 +32,7 @@ class Game:
         self.attacks = pygame.sprite.LayeredUpdates()
         self.player = pygame.sprite.LayeredUpdates()
         self.powerup = pygame.sprite.LayeredUpdates()
+        self.light_system = LightSystem(self.player)
         # self.player = Player(self,1,2)
         self.create_level(self.labrinth_length, self.labrinth_width)
 
