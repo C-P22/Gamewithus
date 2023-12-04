@@ -57,6 +57,8 @@ class Player(pygame.sprite.Sprite, Character):
         self.rect.x = self.x
         self.rect.y = self.y
 
+        self.is_overlapping_with_portal = False
+
     def update(self):
         self.movement()
         self.collide_enemy()  # NEU
@@ -65,8 +67,9 @@ class Player(pygame.sprite.Sprite, Character):
 
         self.collide_powerup()
         if self.collide_portal():
-            return True
-        return False
+            self.is_overlapping_with_portal = True
+        else:
+            self.is_overlapping_with_portal = False
 
     def collide_tile(self, ignore_walls, sub_step_count):
         if ignore_walls:

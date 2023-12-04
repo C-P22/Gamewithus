@@ -4,26 +4,35 @@ from config import *
 import sys
 import turtle
 from labrinth_generator import Maze
-from sound_handler import *
-from light_system import *
+import sound_handler
 
 
 class Game:
     def __init__(self):
         pygame.init()
         pygame.mixer.init()
-        SoundHandler.play_level_soundtrack()
+        sound_handler.SoundHandler.play_level_soundtrack()
         self.screen = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT))
         self.clock = pygame.time.Clock()  # frame rate
         self.running = True
         self.x = 0
         self.labrinth_length = 10
         self.labrinth_width = 10
-        # self.overlay = pygame.Surface((WIN_WIDTH, WIN_HEIGHT), pygame.SRCALPHA)
-        # self.overlay.fill((0, 0, 0, 128))
 
-    def new(self):
-        # when a new game starts 
+    def update(self):
+        self.player.update()
+        if self.player.is_overlapping_with_portal:
+            self.load_next_level()
+        self.enemies.update()
+
+    def load_next_level(self):
+        self.labrinth_length += 3
+        self.labrinth_width += 3
+        self.initialize_game_objects()
+        self.create_level()
+        pass
+
+    def initialize_game_objects(self):
         self.playing = True
         self.all_sprites = pygame.sprite.LayeredUpdates()  # hier können wir unsere Sprites reintun
         self.blocks = pygame.sprite.LayeredUpdates()
@@ -32,22 +41,15 @@ class Game:
         self.attacks = pygame.sprite.LayeredUpdates()
         self.player = pygame.sprite.LayeredUpdates()
         self.powerup = pygame.sprite.LayeredUpdates()
-        self.light_system = LightSystem(self.player)
-        # self.player = Player(self,1,2)
-        self.create_level(self.labrinth_length, self.labrinth_width)
 
-    def update(self):
-        if self.player.update():
-            self.labrinth_length += 3
-            self.labrinth_width += 3
-            self.new()
-        self.enemies.update()
-
-    def create_level(self, lenght, wigth):
-        level = Maze(lenght, wigth, lenght // 2, wigth // 2)
+    def create_level(self):
+        self.wall_matrix = [[0]*self.labrinth_length]*self.labrinth_width
+        level = Maze(self.labrinth_length, self.labrinth_width, self.labrinth_length // 2, self.labrinth_width // 2)
         for i, row in enumerate(level.maze):
             for j, colum in enumerate(row):
+                self.wall_matrix[i][j] = 0
                 if colum == "X":
+                    self.wall_matrix[i][j] = 1
                     Wall(self, j, i, True)
                 if colum == "P":
                     self.player = Player(self, j, i)
@@ -55,6 +57,7 @@ class Game:
                 if colum == ".":
                     x = random.randint(0, 50)
                     if x < 10:
+                        self.wall_matrix[i][j] = 1
                         Wall(self, j, i, False)
                     elif x == 10:
                         Floor(self, j, i)
@@ -68,7 +71,7 @@ class Game:
                     Floor(self, j, i)
                     Portal(self, j, i)
 
-    def draw(self):
+    def draw_screen(self):
 
         self.screen.fill(BLACK)
         ''''''''''
@@ -92,18 +95,7 @@ class Game:
             sprite.rect.x -= camera_offset[0]
             sprite.rect.y -= camera_offset[1]
 
-        # x = random.randint(0,9)
-        # self.x = x
-        # image = pygame.image.load(f"img/light/{self.x}.png")
-        # image_rect =image.get_rect()
-        # self.screen.blit(image, image_rect)
-        self.clock.tick(FPS)
-        pygame.display.update()
-        self.clock.tick(FPS)
-        # self.screen.blit(self.overlay, (0, 0))
-        pygame.display.update()
-
-    def events(self):
+    def execute_events(self):
         for event in pygame.event.get():  # all events that are registered are here being checkt
 
             if event.type == pygame.QUIT:
@@ -111,24 +103,26 @@ class Game:
                 self.running = False
         key = pygame.key.get_pressed()  # checks which keys are being pressed
         if key[pygame.K_SPACE]:
-            self.new()
+            self.load_next_level()
 
     def main(self):
         while self.playing == True:
-            self.events()
+            self.execute_events()
             self.update()
-            self.draw()
+            self.draw_screen()
+            self.clock.tick(FPS)
+            pygame.display.update()
         self.running = False
 
     def game_over(self):
         pass
 
 
-g = Game()
-g.new()
-while g.running:
-    g.main()
-    g.game_over()
+game = Game()
+game.load_next_level()
+while game.running:
+    game.main()
+    game.game_over()
 
 pygame.quit()
 sys.exit()
