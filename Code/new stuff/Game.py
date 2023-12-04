@@ -1,16 +1,23 @@
 import pygame
-from sprite import *
-from config import *
-import sys
-import turtle
-from labrinth_generator import Maze
-import sound_handler
+import random
 
-#remove Game class and import Game.py
+from config import *
+import sound_handler
+import light_system
+
+from labrinth_generator import Maze
+from Wall import Wall
+from Floor import Floor
+from Enemy import Enemy
+from Player import Player
+from Powerup import Powerup
+from Portal import Portal
+from Darkness import Darkness
+
 class Game:
     def __init__(self):
         pygame.init()
-        pygame.mixer.init()
+        sound_handler.init()
         sound_handler.play_level_soundtrack()
         self.screen = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT))
         self.clock = pygame.time.Clock()  # frame rate
@@ -24,18 +31,34 @@ class Game:
         if self.player.is_overlapping_with_portal:
             self.load_next_level()
         self.enemies.update()
+        self.update_light()
+
+    def update_light(self):
+        # only calculate light when it changes
+        if (self.prev_player_tile_position == self.player.get_tile_position()):
+            self.prev_player_tile_position = self.player.get_tile_position()
+            return
+        # calculate light
+        light_value_matrix = light_system.get_light_matrix(self.wall_matrix, self.player.get_tile_position(), self.player.light_range, True)
+        # set light values
+        for i in range(len(light_value_matrix)):
+            for j in range(len(light_value_matrix[i])):
+                self.darkness_matrix[i][j].set_alpha(255 - 255 / self.player.light_range * light_value_matrix[i][j])
+        # store the tile position of player so I know if the light changed in the next iteration
+        self.prev_player_tile_position = self.player.get_tile_position()
 
     def load_next_level(self):
+        self.prev_player_tile_position = -1, -1
         self.labrinth_length += 3
         self.labrinth_width += 3
         self.initialize_game_objects()
         self.create_level()
-        pass
 
     def initialize_game_objects(self):
         self.playing = True
         self.all_sprites = pygame.sprite.LayeredUpdates()  # hier können wir unsere Sprites reintun
         self.blocks = pygame.sprite.LayeredUpdates()
+        self.darkness = pygame.sprite.LayeredUpdates()
         self.portal = pygame.sprite.LayeredUpdates()
         self.enemies = pygame.sprite.LayeredUpdates()
         self.attacks = pygame.sprite.LayeredUpdates()
@@ -43,13 +66,13 @@ class Game:
         self.powerup = pygame.sprite.LayeredUpdates()
 
     def create_level(self):
-        self.wall_matrix = [[0]*self.labrinth_length]*self.labrinth_width
+        self.wall_matrix = [[0 for _ in range(self.labrinth_length)] for _ in range(self.labrinth_width)]
+        self.darkness_matrix = [[0 for _ in range(self.labrinth_length)] for _ in range(self.labrinth_width)]
         level = Maze(self.labrinth_length, self.labrinth_width, self.labrinth_length // 2, self.labrinth_width // 2)
         for i, row in enumerate(level.maze):
             for j, colum in enumerate(row):
-                self.wall_matrix[i][j] = 0
                 if colum == "X":
-                    self.wall_matrix[i][j] = 1
+                    self.wall_matrix[j][i] = 1
                     Wall(self, j, i, True)
                 if colum == "P":
                     self.player = Player(self, j, i)
@@ -57,7 +80,7 @@ class Game:
                 if colum == ".":
                     x = random.randint(0, 50)
                     if x < 10:
-                        self.wall_matrix[i][j] = 1
+                        self.wall_matrix[j][i] = 1
                         Wall(self, j, i, False)
                     elif x == 10:
                         Floor(self, j, i)
@@ -70,6 +93,9 @@ class Game:
                 if colum == "E":
                     Floor(self, j, i)
                     Portal(self, j, i)
+                self.darkness_matrix[j][i] = Darkness(self, j, i)
+
+
 
     def draw_screen(self):
 
@@ -116,12 +142,3 @@ class Game:
 
     def game_over(self):
         pass
-
-game = Game()
-game.load_next_level()
-while game.running:
-    game.main()
-    game.game_over()
-
-pygame.quit()
-sys.exit()
