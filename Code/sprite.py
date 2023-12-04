@@ -61,30 +61,31 @@ class Player(pygame.sprite.Sprite, Character):
         self.movement()
         self.collide_enemy()  # NEU
         key = pygame.key.get_pressed()
-        self.rect.x += self.x_change
-        if key[pygame.K_c]:
-            pass
-        else:
-            self.collide_block_new('x')
+        self.collide_tile(key[pygame.K_c], 7)
 
-        self.rect.y += self.y_change
-
-        if key[pygame.K_c]:
-            pass
-        else:
-            self.collide_block_new('y')
-        # if not key[pygame.K_c]:
-        #     self.collide_block_new()
-
-        self.x_change = 0
-        self.y_change = 0
-
-        self.x_change = 0
-        self.y_change = 0
         self.collide_powerup()
         if self.collide_portal():
             return True
         return False
+
+    def collide_tile(self, ignore_walls, sub_step_count):
+        if ignore_walls:
+            self.rect.x += self.x_change
+            self.rect.y += self.y_change
+
+            self.x_change = 0
+            self.y_change = 0
+            return
+         
+        for i in range(sub_step_count):
+            self.rect.x += self.x_change / sub_step_count
+            self.collide_block('x')
+
+            self.rect.y += self.y_change / sub_step_count
+            self.collide_block('y')
+
+        self.x_change = 0
+        self.y_change = 0
 
     def collide_portal(self):
         hits = pygame.sprite.spritecollide(self, self.game.portal, False)
