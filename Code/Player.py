@@ -33,7 +33,7 @@ class Player(pygame.sprite.Sprite, Character):
         self.movement()
         self.collide_enemy()
         key = pygame.key.get_pressed()
-        self.collide_tile(key[pygame.K_c], 7)
+        self.collide_tile(key[pygame.K_c], MOVEMENT_SUBSTEP_COUNT)
 
         self.collide_powerup()
         if self.collide_portal():

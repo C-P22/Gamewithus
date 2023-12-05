@@ -77,5 +77,4 @@ def get_light_matrix_new(wall_matrix, target_tile, target_light_range):
         currently_inspecting_tiles = new_currently_inspecting_tiles
         currently_inspecting_tile_light_values = new_currently_inspecting_tiles_light_values
 
-    # light_matrix[target_tile[0]][target_tile[1]] = 0
     return light_matrix

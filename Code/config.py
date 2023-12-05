@@ -5,6 +5,7 @@ WIN_HEIGHT = 800
 ENTITY_SIZE = 80
 TILE_SIZE = 100
 FPS = 60
+MOVEMENT_SUBSTEP_COUNT = 7
 
 UI_LAYER = 6
 WEAPON_LAYER = 5
@@ -24,11 +25,11 @@ HEALTH_BAR_Y = 200
 HEALTH_BAR_WIDTH = 25
 HEALTH_BAR_HEIGHT = 20
 
-SOUND_FOLDER = os.path.join("Code", "sounds")
+SOUND_FOLDER = "sounds"
 MUSIC_FOLDER = os.path.join(SOUND_FOLDER, "music")
 LEVEL_SOUNDTRACK = os.path.join(MUSIC_FOLDER, "Pharaoh's Tomb Soundtrack final.mp3")
 
-IMAGE_FOLDER = os.path.join("Code", "img")
+IMAGE_FOLDER = "img"
 PORTAL_SPRITE_PATH = os.path.join(IMAGE_FOLDER, "portal.png")
 FLOOR_SPRITE_PATH = os.path.join(IMAGE_FOLDER, "floorbig.png")
 
