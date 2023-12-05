@@ -24,15 +24,15 @@ HEALTH_BAR_Y = 200
 HEALTH_BAR_WIDTH = 20
 HEALTH_BAR_HEIGHT = 20
 
-SOUND_FOLDER = "Code\\sounds"
+SOUND_FOLDER = os.path.join("Code", "sounds")
 MUSIC_FOLDER = os.path.join(SOUND_FOLDER, "music")
 LEVEL_SOUNDTRACK = os.path.join(MUSIC_FOLDER, "Pharaoh's Tomb Soundtrack final.mp3")
 
-IMAGE_FOLDER = "Code\\img"
+IMAGE_FOLDER = os.path.join("Code", "img")
 PORTAL_SPRITE_PATH = os.path.join(IMAGE_FOLDER, "portal.png")
 FLOOR_SPRITE_PATH = os.path.join(IMAGE_FOLDER, "floorbig.png")
 
-MUSIC_VOLUME = 0
+MUSIC_VOLUME = 1
 
 def NEW_HEALTH():
     global PLAYER_HEALTH
