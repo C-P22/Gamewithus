@@ -25,6 +25,8 @@ HEALTH_BAR_Y = 200
 HEALTH_BAR_WIDTH = 25
 HEALTH_BAR_HEIGHT = 20
 
+LIGHT_ADAPTION_TIME = 0.1
+
 SOUND_FOLDER = "sounds"
 MUSIC_FOLDER = os.path.join(SOUND_FOLDER, "music")
 LEVEL_SOUNDTRACK = os.path.join(MUSIC_FOLDER, "Pharaoh's Tomb Soundtrack final.mp3")
