@@ -6,13 +6,13 @@ import sound_handler
 import light_system
 
 from labrinth_generator import Maze
-from Wall import Wall
-from Floor import Floor
 from Enemy import Enemy
 from Player import Player
-from Powerup import Powerup
-from Portal import Portal
-from Darkness import Darkness
+from Blocks.darkness import *
+from Blocks.floor import *
+from Blocks.portal import *
+from Blocks.powerup import *
+from Blocks.wall import *
 
 class Game:
     def __init__(self):
@@ -39,7 +39,7 @@ class Game:
             self.prev_player_tile_position = self.player.get_tile_position()
             return
         # calculate light
-        light_value_matrix = light_system.get_light_matrix(self.wall_matrix, self.player.get_tile_position(), self.player.light_range, True)
+        light_value_matrix = light_system.get_light_matrix_new(self.wall_matrix, self.player.get_tile_position(), self.player.light_range)
         # set light values
         for i in range(len(light_value_matrix)):
             for j in range(len(light_value_matrix[i])):

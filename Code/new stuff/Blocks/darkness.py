@@ -1,7 +1,7 @@
 import pygame
 from config import *
 
-from Block import *
+from Blocks.block import *
 
 
 class Darkness(Block):
