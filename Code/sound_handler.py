@@ -1,10 +1,12 @@
 import pygame
 import os
+from config import *
 
-root_folder = "sounds"
-music_folder = os.path.join(root_folder, "music")
-global level_music_file
-level_music_file = os.path.join(music_folder, "Pharaoh's Tomb Soundtrack final.mp3")
+level_music_file = os.path.join(MUSIC_FOLDER, "Pharaoh's Tomb Soundtrack final.mp3")
+
+def init():
+    pygame.mixer.init()
+    pygame.mixer.music.set_volume(MUSIC_VOLUME)
 
 def play_level_soundtrack():
     pygame.mixer.music.stop()
