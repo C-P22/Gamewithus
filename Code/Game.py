@@ -7,7 +7,7 @@ import light_system
 
 from labrinth_generator import Maze
 from Enemy import Enemy
-from Player import Player
+from Player import *
 from Blocks.darkness import *
 from Blocks.floor import *
 from Blocks.portal import *
