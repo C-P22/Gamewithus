@@ -22,7 +22,6 @@ class Game:
         self.screen = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT))
         self.clock = pygame.time.Clock()  # frame rate
         self.running = True
-        self.x = 0
         self.labrinth_length = 10
         self.labrinth_width = 10
 
@@ -66,6 +65,8 @@ class Game:
         self.player = pygame.sprite.LayeredUpdates()
         self.powerup = pygame.sprite.LayeredUpdates()
         self.health_bar = pygame.sprite.LayeredUpdates()
+        self.weapons = pygame.sprite.LayeredUpdates()
+        self.destroyable = pygame.sprite.LayeredUpdates()
 
     def create_level(self):
         # matrices are used to retrieve information about the maze

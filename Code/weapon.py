@@ -74,7 +74,7 @@ class Wepon(pygame.sprite.Sprite):
             self.image.fill((255,255,0))
             
         else:
-            image_to_load = pygame.image.load("code/img/weapon/weopon.png")
+            image_to_load = pygame.image.load("img/weapon/weopon.png")
             self.image = pygame.Surface([self.width,self.height])
             self.image = self.image.convert_alpha()
             #self.image.set_colorkey(BLACK)
