@@ -36,3 +36,6 @@ class Block(pygame.sprite.Sprite):
 
     def set_alpha(self, alpha):
         self.image.set_alpha(alpha)
+
+    def get_alpha(self):
+        return self.image.get_alpha()

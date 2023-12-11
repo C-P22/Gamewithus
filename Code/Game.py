@@ -34,16 +34,18 @@ class Game:
         self.update_light()
 
     def update_light(self):
-        # only calculate light when it changes
-        if (self.prev_player_tile_position == self.player.get_tile_position()):
-            self.prev_player_tile_position = self.player.get_tile_position()
-            return
+        # # only calculate light when it changes
+        # if (self.prev_player_tile_position == self.player.get_tile_position()):
+        #     self.prev_player_tile_position = self.player.get_tile_position()
+        #     return
         # calculate light
         light_value_matrix = light_system.get_light_matrix_new(self.wall_matrix, self.player.get_tile_position(), self.player.light_range)
         # set light values
         for i in range(len(light_value_matrix)):
             for j in range(len(light_value_matrix[i])):
-                self.darkness_matrix[i][j].set_alpha(255 - 255 / self.player.light_range * light_value_matrix[i][j])
+                new_alpha = 255 * (1 - light_value_matrix[i][j] / self.player.light_range)
+                old_alpha = self.darkness_matrix[i][j].get_alpha()
+                self.darkness_matrix[i][j].set_alpha(old_alpha + (new_alpha - old_alpha) / (LIGHT_ADAPTION_TIME * FPS))
         # store the tile position of player so I know if the light changed in the next iteration
         self.prev_player_tile_position = self.player.get_tile_position()
 
