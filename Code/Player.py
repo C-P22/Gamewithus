@@ -19,7 +19,7 @@ class Player(pygame.sprite.Sprite, Character):
         self.x_change = 0
         self.y_change = 0
         self.facing = "down"  # movements of the character
-        image_to_load = pygame.image.load("code/player/player_look_down.png")
+        image_to_load = pygame.image.load("player/player_look_down.png")
         self.image = pygame.Surface([self.width,self.height])
         self.image = self.image.convert_alpha()
         #self.image.set_colorkey(BLACK)

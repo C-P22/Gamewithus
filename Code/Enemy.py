@@ -8,7 +8,7 @@ class Enemy(pygame.sprite.Sprite):
 
         self.game = game
         self._layer = ENEMY_LAYER
-        self.groups = self.game.all_sprites, self.game.enemies
+        self.groups = self.game.all_sprites, self.game.enemies,self.game.destroyable
         pygame.sprite.Sprite.__init__(self, self.groups)
 
         self.x = x * TILE_SIZE
@@ -51,3 +51,5 @@ class Enemy(pygame.sprite.Sprite):
             self.movement_loop += 1
             if self.movement_loop >= self.max_travel:
                 self.facing = 'left'
+    def killing(self):
+        self.kill()

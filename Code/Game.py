@@ -32,6 +32,7 @@ class Game:
             self.load_next_level()
         self.enemies.update()
         self.update_light()
+        self.destroyable.update()
 
     def update_light(self):
         # # only calculate light when it changes
@@ -66,6 +67,9 @@ class Game:
         self.attacks = pygame.sprite.LayeredUpdates()
         self.player = pygame.sprite.LayeredUpdates()
         self.powerup = pygame.sprite.LayeredUpdates()
+        self.weapons = pygame.sprite.LayeredUpdates()
+        self.destroyable = pygame.sprite.LayeredUpdates()
+
 
     def create_level(self):
         self.wall_matrix = [[0 for _ in range(self.labrinth_length)] for _ in range(self.labrinth_width)]
@@ -83,6 +87,7 @@ class Game:
                     x = random.randint(0, 50)
                     if x < 10:
                         self.wall_matrix[j][i] = 1
+                        Floor(self, j, i)
                         Wall(self, j, i, False)
                     elif x == 10:
                         Floor(self, j, i)
@@ -132,6 +137,9 @@ class Game:
         key = pygame.key.get_pressed()  # checks which keys are being pressed
         if key[pygame.K_SPACE]:
             self.load_next_level()
+        if key[pygame.K_k]:
+            for destroy in self.destroyable:
+                destroy.killing()
 
     def main(self):
         while self.playing == True:
