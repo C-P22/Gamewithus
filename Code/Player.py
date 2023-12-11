@@ -18,13 +18,9 @@ class Player(pygame.sprite.Sprite, Character):
         self.x_change = 0
         self.y_change = 0
         self.facing = "down"  # movements of the character
-        self.image = pygame.Surface([self.width, self.height])
-        self.image.fill(RED)
-
         self.rect = self.image.get_rect()  # hit box = image the same
         self.rect.x = x * TILE_SIZE
         self.rect.y = y * TILE_SIZE
-
         self.is_overlapping_with_portal = False
 
         self.light_range = PLAYER_LIGHT_RANGE
@@ -34,7 +30,6 @@ class Player(pygame.sprite.Sprite, Character):
         self.collide_enemy()
         key = pygame.key.get_pressed()
         self.collide_tile(key[pygame.K_c], 7)
-
         self.collide_powerup()
         if self.collide_portal():
             self.is_overlapping_with_portal = True
@@ -72,18 +67,15 @@ class Player(pygame.sprite.Sprite, Character):
             pass
         else:
 
-            if key[pygame.K_LEFT]:
                 # for sprite in self.game.all_sprites:
                 #    sprite.rect.x += PLAYER_SPEED
 
                 self.x_change -= CURRENT_SPEED()
                 self.facing = 'left'
-            if key[pygame.K_RIGHT]:
                 # for sprite in self.game.all_sprites:
                 #    sprite.rect.x  -= PLAYER_SPEED
                 self.x_change += CURRENT_SPEED()
                 self.facing = 'right'
-            if key[pygame.K_UP]:
                 # for sprite in self.game.all_sprites:
                 #   sprite.rect.y += PLAYER_SPEED
                 self.y_change -= CURRENT_SPEED()
