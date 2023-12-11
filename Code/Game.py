@@ -66,6 +66,7 @@ class Game:
         self.attacks = pygame.sprite.LayeredUpdates()
         self.player = pygame.sprite.LayeredUpdates()
         self.powerup = pygame.sprite.LayeredUpdates()
+
         self.weapons = pygame.sprite.LayeredUpdates()
         self.destroyable = pygame.sprite.LayeredUpdates()
 
