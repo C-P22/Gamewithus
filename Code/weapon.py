@@ -74,8 +74,11 @@ class Wepon(pygame.sprite.Sprite):
             self.image.fill((255,255,0))
             
         else:
+            image_to_load = pygame.image.load("code/img/weapon/weopon.png")
             self.image = pygame.Surface([self.width,self.height])
-            self.image.fill((255,255,0))
+            self.image = self.image.convert_alpha()
+            #self.image.set_colorkey(BLACK)
+            self.image.blit(image_to_load,(0,0))
             self.ready_to_deal_damage = True
     def collide_block(self):
         if  self.ready_to_deal_damage:
