@@ -37,6 +37,7 @@ FLOOR_SPRITE_PATH = os.path.join(IMAGE_FOLDER, "floorbig.png")
 
 MUSIC_VOLUME = 1
 
+
 def NEW_HEALTH():
     global PLAYER_HEALTH
     PLAYER_HEALTH -= 1
