@@ -40,19 +40,14 @@ class Wepon(pygame.sprite.Sprite):
             
             mouse_x, mouse_y = pygame.mouse.get_pos()
             angle = math.atan2(mouse_y - self.rect.centery, mouse_x - self.rect.centerx)
-            ic(angle)
-            ic(mouse_x,mouse_y)
-            ic(self.rect.x,self.rect.y)
+
             mouse_x -= 400
             mouse_y -= 400
-            ic(mouse_x,mouse_y)
             
             
             direction_x = mouse_x 
             direction_y = mouse_y 
-            ic(direction_x,direction_y)
             distance = math.sqrt(direction_x**2 + direction_y**2)
-            ic(distance)
             
 
             # Normalize the direction vector

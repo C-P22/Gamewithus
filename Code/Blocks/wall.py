@@ -10,7 +10,8 @@ class Wall(Block):
         if transparent:
             groups = game.all_sprites, game.blocks
         else:
-            groups = game.all_sprites
+            groups = game.all_sprites, game.blocks,game.destroyable
         Block.__init__(self, x, y, groups)
 
         Block.set_color(self, SAND_COLOR)
+    
