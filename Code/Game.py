@@ -36,17 +36,16 @@ class Game:
 
     def update_light(self):
         # # only calculate light when it changes
-        # if (self.prev_player_tile_position == self.player.get_tile_position()):
-        #     self.prev_player_tile_position = self.player.get_tile_position()
-        #     return
-        # calculate light
-        light_value_matrix = light_system.get_light_matrix_new(self.wall_matrix, self.player.get_tile_position(), self.player.light_range)
+        if (self.prev_player_tile_position == self.player.get_tile_position()):
+            self.light_value_matrix = light_system.get_light_matrix(self.wall_matrix, self.player.get_tile_position(), self.player.light_range)
+
+
         # set light values
-        for i in range(len(light_value_matrix)):
-            for j in range(len(light_value_matrix[i])):
-                new_alpha = 255 * (1 - light_value_matrix[i][j] / self.player.light_range)
+        for i in range(len(self.light_value_matrix)):
+            for j in range(len(self.light_value_matrix[i])):
+                new_alpha = 255 * (1 - self.light_value_matrix[i][j] / self.player.light_range)
                 old_alpha = self.darkness_matrix[i][j].get_alpha()
-                self.darkness_matrix[i][j].set_alpha(old_alpha + (new_alpha - old_alpha) / (LIGHT_ADAPTION_TIME * FPS))
+                self.darkness_matrix[i][j].set_alpha(old_alpha + (new_alpha - old_alpha) / (LIGHT_ADAPTION_TIME / PLAYER_SPEED * FPS))
         # store the tile position of player so I know if the light changed in the next iteration
         self.prev_player_tile_position = self.player.get_tile_position()
 
@@ -70,11 +69,17 @@ class Game:
         self.weapons = pygame.sprite.LayeredUpdates()
         self.destroyable = pygame.sprite.LayeredUpdates()
 
+        self.health_bar = pygame.sprite.LayeredUpdates()
 
     def create_level(self):
+        # matrices are used to retrieve information about the maze
         self.wall_matrix = [[0 for _ in range(self.labrinth_length)] for _ in range(self.labrinth_width)]
         self.darkness_matrix = [[0 for _ in range(self.labrinth_length)] for _ in range(self.labrinth_width)]
+        self.light_value_matrix = [[0 for _ in range(self.labrinth_length)] for _ in range(self.labrinth_width)]
+
+        # make maze
         level = Maze(self.labrinth_length, self.labrinth_width, self.labrinth_length // 2, self.labrinth_width // 2)
+        
         for i, row in enumerate(level.maze):
             for j, colum in enumerate(row):
                 if colum == "X":
