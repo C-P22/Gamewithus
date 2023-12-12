@@ -6,7 +6,7 @@ import time
 from icecream import ic 
 
 
-class Wepon(pygame.sprite.Sprite):
+class Weapon(pygame.sprite.Sprite):
     def __init__(self,game,Player):
         self.player = Player
         self.game = game 
