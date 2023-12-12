@@ -41,7 +41,7 @@ class Block(pygame.sprite.Sprite):
         return self.image.get_alpha()
     
     def update(self):
-        if self.health < 0:
+        if self.health <= 0:
             self.kill()
     def killing(self):
         self.kill()

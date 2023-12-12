@@ -54,7 +54,6 @@ class Wepon(pygame.sprite.Sprite):
             if distance != 0:
                 direction_x /= distance
                 direction_y /= distance
-            ic(direction_x,direction_y)
             #time.sleep(3)
             self.rect.x += int(direction_x * self.weapon_range)
             self.rect.y += int(direction_y * self.weapon_range)
