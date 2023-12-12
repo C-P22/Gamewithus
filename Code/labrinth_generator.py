@@ -18,14 +18,33 @@ class Maze:
         self.y_player = y_player
         self.x_player = x_player
         self.maze = [["u" for _ in range(self.length)] for _ in range(self.width)]
+        self.visited = [[False for _ in range(self.length)] for _ in range(self.width)]
+
         self.dfs_search(self.y_player, self.x_player)
         self.maze[self.y_player][self.x_player] = Maze.PLAYER
         for y, blocks in enumerate(self.maze):
             for x, block in enumerate(blocks):
                 if block == 'u':
                     self.maze[y][x] = "X"
-        self.maze[random.randint(1, self.length - 2)][self.width - 2] = Maze.END
+        self.farest_point()
+    def farest_point(self):
+        start = [[self.y_player,self.x_player]]
+        while len(start) > 0:
 
+            y,x = start[0]
+            if len(start) == 1:
+                farthes_x = x
+                farthes_y = y 
+            self.visited[y][x] = True
+            start.pop(0)
+            neighbors = [[y - 1, x], [y + 1, x], [y, x + 1], [y, x - 1]]
+            for neighbor in neighbors:
+                y_neigbor,x_neigbor = neighbor
+                if self.visited[y_neigbor][x_neigbor] == False and self.maze[y_neigbor][x_neigbor]== '.':
+                    self.visited[y_neigbor][x_neigbor] = True
+                    start.append([y_neigbor,x_neigbor])
+        self.maze[farthes_y][farthes_x] = Maze.END
+        return
     def dfs_search(self, y, x):
 
         # ic(x, y, self.maze[y][x])
@@ -52,11 +71,8 @@ class Maze:
                 luck = random.randint(0, 30)  # jeder xte Block hat die Chance doch noch ein Path zu werden
                 if self.maze[y_ne][x_ne] == 'u' or self.maze[y_ne][x_ne] == 'V' or luck == 0:
                     self.dfs_search(y_ne, x_ne)
-# g = Maze(15,10,10//2,1)
+#g = Maze(20,20,10//2,1)
+#ic(g.maze)
 
-# ic(g.maze)
-
-# g.maze[g.width//2][1] = "P"
-
-
-# print(g.maze)
+#print()
+#print(@g.maze)
