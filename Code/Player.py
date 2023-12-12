@@ -10,39 +10,56 @@ class Player(pygame.sprite.Sprite, Character):
 
     def __init__(self, game, x, y):
         self.game = game
-        self._layer = PLAYER_LAYER  # important when we have more objekts, so we know which is on top of which
+        self._layer = PLAYER_LAYER  # important when we have more objects, so we know which is on top of which
         self.groups = self.game.all_sprites, self.game.player  # add it to all sprite group# add it to all sprite group
         pygame.sprite.Sprite.__init__(self, self.groups)
 
         self.width = ENTITY_SIZE
         self.height = ENTITY_SIZE
-        self.x_change = 0
-        self.y_change = 0
-        self.facing = "down"  # movements of the character
-        image_to_load = pygame.image.load("player/player_look_down.png")
-        self.image = pygame.Surface([self.width,self.height])
-        self.image = self.image.convert_alpha()
-        #self.image.set_colorkey(BLACK)
-        self.image.blit(image_to_load,(0,0))
-        self.rect = self.image.get_rect()  # hit box = image the same
+
+        self.image = pygame.Surface([self.width,self.height]).convert_alpha()
+        
+        self.rect = self.image.get_rect()  # hit box is the same size as the image
+
+        #set position
         self.rect.x = x * TILE_SIZE
         self.rect.y = y * TILE_SIZE
-        self.weapon = Wepon(game,self)
-        self.is_overlapping_with_portal = False
 
-        self.light_range = PLAYER_LIGHT_RANGE
+        self.light_range = START_PLAYER_LIGHT_RANGE
+        self.weapon = Weapon(game, self)
+
+        self.is_overlapping_with_portal = False
+        self.facing = 'down'
 
     def update(self):
         self.movement()
         self.collide_enemy()
-        key = pygame.key.get_pressed()
-        self.collide_tile(key[pygame.K_c], 7)
         self.weapon.update()
-        self.collide_powerup()
-        if self.collide_portal():
-            self.is_overlapping_with_portal = True
+        self.collide()
+        self.update_sprite()
+    
+    def reload(self):
+        self.facing = "down"
+        
+        self.x_change = 0
+        self.y_change = 0
+    
+    def update_sprite(self):
+        # pass because those sprites don't exist yet.
+        # This is very much temporary and will immediately be changed when the sprites for the other directions are present.
+        if self.facing == 'right':
+            pass
+        elif self.facing == 'up':
+            pass
+        elif self.facing == 'left':
+            pass
         else:
-            self.is_overlapping_with_portal = False
+            self.image.blit(pygame.image.load("player/player_look_down.png"),(0,0))
+    
+    def collide(self):
+        self.collide_tile(pygame.key.get_pressed()[pygame.K_c], MOVEMENT_SUBSTEP_COUNT)
+        self.collide_powerup()
+        self.collide_portal()
 
     def collide_tile(self, ignore_walls, sub_step_count):
         if ignore_walls:
@@ -53,6 +70,7 @@ class Player(pygame.sprite.Sprite, Character):
             self.y_change = 0
             return
 
+        # do small steps multiple times to get the same outcome as doing one normal step but with more precision
         for i in range(sub_step_count):
             self.rect.x += self.x_change / sub_step_count
             self.collide_block('x')
@@ -64,36 +82,24 @@ class Player(pygame.sprite.Sprite, Character):
         self.y_change = 0
 
     def collide_portal(self):
-        hits = pygame.sprite.spritecollide(self, self.game.portal, False)
-        if hits:
-            return True
-        return False
+        self.is_overlapping_with_portal = pygame.sprite.spritecollide(self, self.game.portal, False)
 
     def movement(self):
         key = pygame.key.get_pressed()  # checks which keys are being pressed
-        if key[pygame.K_g]:  # freeze
-            pass
-        else:
-
+        if not key[pygame.K_g]:  # freeze
             if key[pygame.K_LEFT] or key[pygame.K_a]:
-                # for sprite in self.game.all_sprites:
-                #    sprite.rect.x += PLAYER_SPEED
-
                 self.x_change -= CURRENT_SPEED()
                 self.facing = 'left'
+
             if key[pygame.K_RIGHT]or key[pygame.K_d]:
-                # for sprite in self.game.all_sprites:
-                #    sprite.rect.x  -= PLAYER_SPEED
                 self.x_change += CURRENT_SPEED()
                 self.facing = 'right'
+
             if key[pygame.K_UP]or key[pygame.K_w]:
-                # for sprite in self.game.all_sprites:
-                #   sprite.rect.y += PLAYER_SPEED
                 self.y_change -= CURRENT_SPEED()
                 self.facing = 'up'
+
             if key[pygame.K_DOWN]or key[pygame.K_s]:
-                # for sprite in self.game.all_sprites:
-                #   sprite.rect.y -= PLAYER_SPEED
                 self.y_change += CURRENT_SPEED()
                 self.facing = 'down'
 
