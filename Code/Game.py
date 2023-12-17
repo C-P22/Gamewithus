@@ -14,6 +14,7 @@ from Blocks.portal import *
 from Blocks.powerup import *
 from Blocks.wall import *
 
+
 class Game:
     def __init__(self):
         pygame.init()
@@ -39,7 +40,8 @@ class Game:
         #     self.prev_player_tile_position = self.player.get_tile_position()
         #     return
         # calculate light
-        light_value_matrix = light_system.get_light_matrix_new(self.wall_matrix, self.player.get_tile_position(), self.player.light_range)
+        light_value_matrix = light_system.get_light_matrix_new(self.wall_matrix, self.player.get_tile_position(),
+                                                               self.player.light_range)
         # set light values
         for i in range(len(light_value_matrix)):
             for j in range(len(light_value_matrix[i])):
@@ -70,25 +72,31 @@ class Game:
     def create_level(self):
         self.wall_matrix = [[0 for _ in range(self.labrinth_length)] for _ in range(self.labrinth_width)]
         self.darkness_matrix = [[0 for _ in range(self.labrinth_length)] for _ in range(self.labrinth_width)]
+        self.enemie_movement = [[0 for _ in range(self.labrinth_length)] for _ in range(self.labrinth_width)]
         level = Maze(self.labrinth_length, self.labrinth_width, self.labrinth_length // 2, self.labrinth_width // 2)
         for i, row in enumerate(level.maze):
             for j, colum in enumerate(row):
                 if colum == "X":
                     self.wall_matrix[j][i] = 1
+                    self.enemie_movement[j][i] = 1
                     Wall(self, j, i, True)
                 if colum == "P":
                     self.player = Player(self, j, i)
+                    self.enemie_movement[j][i] = 1
                     Floor(self, j, i)
                 if colum == ".":
                     x = random.randint(0, 50)
                     if x < 10:
                         self.wall_matrix[j][i] = 1
+                        self.enemie_movement[j][i] = 1
                         Wall(self, j, i, False)
                     elif x == 10:
                         Floor(self, j, i)
+                        self.enemie_movement[j][i] = 1
                         Powerup(self, j, i)
                     elif x == 20:
                         Floor(self, j, i)
+                        self.enemie_movement[j][i] = 1
                         Enemy(self, j, i)
                     else:
                         Floor(self, j, i)
@@ -96,8 +104,6 @@ class Game:
                     Floor(self, j, i)
                     Portal(self, j, i)
                 self.darkness_matrix[j][i] = Darkness(self, j, i)
-
-
 
     def draw_screen(self):
 

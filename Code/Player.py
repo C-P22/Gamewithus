@@ -1,5 +1,6 @@
 import pygame
 import math
+import random
 
 from config import *
 from Character import *
@@ -97,7 +98,11 @@ class Player(pygame.sprite.Sprite, Character):
     def collide_powerup(self):  # NEUE FUNKTION
         collide = pygame.sprite.spritecollide(self, self.game.powerup, True)
         if collide:
-            NEW_SPEED()
+            Zufall = random.randint(1, 2)
+            if Zufall == 1:
+                NEW_SPEED()
+            else:
+                HEAL()
 
     def collide_enemy(self):
         hits = pygame.sprite.spritecollide(self, self.game.enemies, False)

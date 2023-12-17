@@ -3,6 +3,16 @@ from config import *
 import random
 
 
+def get_movement_matrix(movement_matrix, labyrinth_length, labyrinth_width):
+    for i in range(1, labyrinth_length-1):
+        for j in range(1, labyrinth_width-1):
+            if movement_matrix[i+1][j] + movement_matrix[i-1][j] + movement_matrix[i][j+1] + movement_matrix[i][j-1] != 2:
+                movement_matrix[i][j] = 2
+            elif movement_matrix[i+1][j] + movement_matrix[i][j+1] == 2 or movement_matrix[i+1][j] + movement_matrix[i][j-1] == 2 or movement_matrix[i-1][j] + movement_matrix[i-1][j+1] == 2:
+                movement_matrix[i][j] = 2
+    return movement_matrix
+
+
 class Enemy(pygame.sprite.Sprite):
     def __init__(self, game, x, y):
 
@@ -51,3 +61,42 @@ class Enemy(pygame.sprite.Sprite):
             self.movement_loop += 1
             if self.movement_loop >= self.max_travel:
                 self.facing = 'left'
+
+    def enemy_movement(self, movement_matrix, labyrinth_length, labyrinth_width):
+        for i in range(labyrinth_length):
+            for j in range(labyrinth_width):
+                if movement_matrix[i][j] == 3:
+                    self.facing = random.choice(['up', 'down', 'right'])
+                    if self.facing == 'left':
+                        self.x_change -= ENEMY_SPEED
+                    elif self.facing == 'up':
+                        self.y_change += ENEMY_SPEED
+                    else:
+                        self.y_change -= ENEMY_SPEED
+                if movement_matrix == 1.2:
+                    self.facing = random.choice(['up', 'down', 'right'])
+                    if self.facing == 'left':
+                        self.x_change -= ENEMY_SPEED
+                    elif self.facing == 'up':
+                        self.y_change += ENEMY_SPEED
+                    else:
+                        self.y_change -= ENEMY_SPEED
+                if movement_matrix == 1.1:
+                    self.facing = random.choice(['up', 'down', 'right'])
+                    if self.facing == 'left':
+                        self.x_change -= ENEMY_SPEED
+                    elif self.facing == 'up':
+                        self.y_change += ENEMY_SPEED
+                    else:
+                        self.y_change -= ENEMY_SPEED
+                if movement_matrix == 1:
+                    self.facing = random.choice(['up', 'down', 'right'])
+                    if self.facing == 'left':
+                        self.x_change -= ENEMY_SPEED
+                    elif self.facing == 'up':
+                        self.y_change += ENEMY_SPEED
+                    else:
+                        self.y_change -= ENEMY_SPEED
+
+
+
