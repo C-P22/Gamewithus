@@ -7,7 +7,7 @@ import light_system
 
 from labrinth_generator import Maze
 from Enemy import Enemy
-from Player import Player
+from Player import *
 from Blocks.darkness import *
 from Blocks.floor import *
 from Blocks.portal import *
@@ -22,7 +22,6 @@ class Game:
         self.screen = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT))
         self.clock = pygame.time.Clock()  # frame rate
         self.running = True
-        self.x = 0
         self.labrinth_length = 10
         self.labrinth_width = 10
 
@@ -32,20 +31,20 @@ class Game:
             self.load_next_level()
         self.enemies.update()
         self.update_light()
+        self.destroyable.update()
 
     def update_light(self):
         # # only calculate light when it changes
-        # if (self.prev_player_tile_position == self.player.get_tile_position()):
-        #     self.prev_player_tile_position = self.player.get_tile_position()
-        #     return
-        # calculate light
-        light_value_matrix = light_system.get_light_matrix_new(self.wall_matrix, self.player.get_tile_position(), self.player.light_range)
+        if (self.prev_player_tile_position == self.player.get_tile_position()):
+            self.light_value_matrix = light_system.get_light_matrix(self.wall_matrix, self.player.get_tile_position(), self.player.light_range)
+
+
         # set light values
-        for i in range(len(light_value_matrix)):
-            for j in range(len(light_value_matrix[i])):
-                new_alpha = 255 * (1 - light_value_matrix[i][j] / self.player.light_range)
+        for i in range(len(self.light_value_matrix)):
+            for j in range(len(self.light_value_matrix[i])):
+                new_alpha = 255 * (1 - self.light_value_matrix[i][j] / self.player.light_range)
                 old_alpha = self.darkness_matrix[i][j].get_alpha()
-                self.darkness_matrix[i][j].set_alpha(old_alpha + (new_alpha - old_alpha) / (LIGHT_ADAPTION_TIME * FPS))
+                self.darkness_matrix[i][j].set_alpha(old_alpha + (new_alpha - old_alpha) / (LIGHT_ADAPTION_TIME / START_PLAYER_SPEED * FPS))
         # store the tile position of player so I know if the light changed in the next iteration
         self.prev_player_tile_position = self.player.get_tile_position()
 
@@ -55,6 +54,7 @@ class Game:
         self.labrinth_width += 3
         self.initialize_game_objects()
         self.create_level()
+        self.player.reload()
 
     def initialize_game_objects(self):
         self.playing = True
@@ -67,10 +67,22 @@ class Game:
         self.player = pygame.sprite.LayeredUpdates()
         self.powerup = pygame.sprite.LayeredUpdates()
 
+        self.weapons = pygame.sprite.LayeredUpdates()
+        self.destroyable = pygame.sprite.LayeredUpdates()
+
+        self.health_bar = pygame.sprite.LayeredUpdates()
+        self.weapons = pygame.sprite.LayeredUpdates()
+        self.destroyable = pygame.sprite.LayeredUpdates()
+
     def create_level(self):
+        # matrices are used to retrieve information about the maze
         self.wall_matrix = [[0 for _ in range(self.labrinth_length)] for _ in range(self.labrinth_width)]
         self.darkness_matrix = [[0 for _ in range(self.labrinth_length)] for _ in range(self.labrinth_width)]
+        self.light_value_matrix = [[0 for _ in range(self.labrinth_length)] for _ in range(self.labrinth_width)]
+
+        # make maze
         level = Maze(self.labrinth_length, self.labrinth_width, self.labrinth_length // 2, self.labrinth_width // 2)
+        
         for i, row in enumerate(level.maze):
             for j, colum in enumerate(row):
                 if colum == "X":
@@ -83,6 +95,7 @@ class Game:
                     x = random.randint(0, 50)
                     if x < 10:
                         self.wall_matrix[j][i] = 1
+                        Floor(self, j, i)
                         Wall(self, j, i, False)
                     elif x == 10:
                         Floor(self, j, i)
@@ -132,6 +145,9 @@ class Game:
         key = pygame.key.get_pressed()  # checks which keys are being pressed
         if key[pygame.K_SPACE]:
             self.load_next_level()
+        if key[pygame.K_k]:
+            for destroy in self.destroyable:
+                destroy.killing()
 
     def main(self):
         while self.playing == True:

@@ -9,7 +9,7 @@ class Block(pygame.sprite.Sprite):
         self.x = x * TILE_SIZE
         self.y = y * TILE_SIZE
         self.width = TILE_SIZE
-
+        self.health = 3 
         self.height = TILE_SIZE
 
         self.groups = groups
@@ -39,3 +39,9 @@ class Block(pygame.sprite.Sprite):
 
     def get_alpha(self):
         return self.image.get_alpha()
+    
+    def update(self):
+        if self.health <= 0:
+            self.kill()
+    def killing(self):
+        self.kill()
