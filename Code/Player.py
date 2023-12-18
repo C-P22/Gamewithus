@@ -55,7 +55,7 @@ class Player(pygame.sprite.Sprite, Character):
             pass
         else:
             self.image.blit(pygame.image.load("player/player_look_down.png"),(0,0))
-    
+        self.image.set_colorkey(BLACK)
     def collide(self):
         self.collide_tile(pygame.key.get_pressed()[pygame.K_c], MOVEMENT_SUBSTEP_COUNT)
         self.collide_powerup()
