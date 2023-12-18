@@ -26,6 +26,7 @@ class Player(pygame.sprite.Sprite, Character):
         self.rect.y = y * TILE_SIZE
 
         self.light_range = START_PLAYER_LIGHT_RANGE
+        self.light_intensities_count = LIGHT_INTENSITIES_COUNT
         self.weapon = Weapon(game, self)
 
         self.is_overlapping_with_portal = False

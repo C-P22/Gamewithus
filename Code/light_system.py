@@ -6,8 +6,10 @@ def get_light_matrix(wall_matrix, target_tile, target_light_range):
 
     currently_inspecting_tiles = [target_tile]
     currently_inspecting_tile_light_values = [target_light_range]
+    # matrix of all tiles if their light value has already been computes
     is_tile_inspected = [[False for _, _ in enumerate(wall_matrix)] for _, _ in enumerate(wall_matrix[0])]
-    light_matrix[target_tile[0]][target_tile[1]] = target_light_range + 1
+    # matrix of all the light values
+    light_matrix[target_tile[0]][target_tile[1]] = target_light_range
 
     iterations = 0
     while len(currently_inspecting_tiles) != 0:
