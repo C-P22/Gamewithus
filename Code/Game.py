@@ -22,8 +22,8 @@ class Game:
         self.screen = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT))
         self.clock = pygame.time.Clock()  # frame rate
         self.running = True
-        self.labrinth_length = 10
-        self.labrinth_width = 10
+        self.labrinth_length = 8
+        self.labrinth_width = 8
 
     def update(self):
         self.player.update()
@@ -32,16 +32,26 @@ class Game:
         self.enemies.update()
         self.update_light()
         self.destroyable.update()
+    def l_light_to_path(self):
+        key = pygame.key.get_pressed()  # checks which keys are being pressed
+        if key[pygame.K_l]:
+            self.light_value_matrix_change = light_system.light_paht(self.maze,self.player.get_tile_position())
+            #print(self.light_value_matrix_change)
 
+        return 
     def update_light(self):
         # # only calculate light when it changes
         if (self.prev_player_tile_position == self.player.get_tile_position()):
             self.light_value_matrix = light_system.get_light_matrix(self.wall_matrix, self.player.get_tile_position(), self.player.light_range)
-
+        self.l_light_to_path()
 
         # set light values
         for i in range(len(self.light_value_matrix)):
             for j in range(len(self.light_value_matrix[i])):
+                value = self.light_value_matrix[i][j] -self.light_value_matrix_change[i][j]
+                if value < 0:
+                    value = START_PLAYER_LIGHT_RANGE
+
                 new_alpha = 255 * (1 - self.light_value_matrix[i][j] / LIGHT_INTENSITIES_COUNT)
                 old_alpha = self.darkness_matrix[i][j].get_alpha()
 
@@ -83,10 +93,10 @@ class Game:
         self.wall_matrix = [[0 for _ in range(self.labrinth_length)] for _ in range(self.labrinth_width)]
         self.darkness_matrix = [[0 for _ in range(self.labrinth_length)] for _ in range(self.labrinth_width)]
         self.light_value_matrix = [[0 for _ in range(self.labrinth_length)] for _ in range(self.labrinth_width)]
-
+        self.light_value_matrix_change = [[0 for _ in range(self.labrinth_length)] for _ in range(self.labrinth_width)]
         # make maze
         level = Maze(self.labrinth_length, self.labrinth_width, self.labrinth_length // 2, self.labrinth_width // 2)
-        
+        self.maze = level.maze 
         for i, row in enumerate(level.maze):
             for j, colum in enumerate(row):
                 if colum == "X":

@@ -3,9 +3,12 @@ from config import *
 
 
 class Block(pygame.sprite.Sprite):
-    def __init__(self, x, y, groups, layer = BLOCK_LAYER):
+    def __init__(self, x, y, groups,game, layer = BLOCK_LAYER):
+        self.orginal_x = x
+        self.orginal_y = y 
         # allow for overriding the layer
         self._layer = layer
+        self.game = game 
         self.x = x * TILE_SIZE
         self.y = y * TILE_SIZE
         self.width = TILE_SIZE
@@ -44,4 +47,18 @@ class Block(pygame.sprite.Sprite):
         if self.health <= 0:
             self.kill()
     def killing(self):
-        self.kill()
+        self.game.wall_matrix[self.orginal_x][self.orginal_y] = 0
+
+[['X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'],
+['X', '.', '.', '.', '.', '.', '.', '.', 'X', 'X', '.', '.', 'X'],
+['X', '.', 'X', 'X', 'X', '.', 'X', '.', '.', '.', '.', 'X', 'X'],
+['X', '.', '.', '.', '.', 'X', '.', 'X', 'X', 'X', '.', '.', 'X'],
+['X', 'X', '.', 'X', '.', '.', '.', '.', '.', '.', 'X', '.', 'X'],
+['X', '.', 'X', '.', 'X', '.', 'X', 'X', 'X', '.', 'X', '.', 'X'],
+['X', '.', '.', '.', '.', 'X', 'P', '.', 'X', '.', 'X', '.', 'X'],
+['X', '.', 'X', 'X', '.', 'E', 'X', '.', '.', '.', 'X', '.', 'X'],
+['X', '.', '.', '.', 'X', 'X', '.', 'X', '.', 'X', '.', '.', 'X'],
+['X', '.', 'X', '.', '.', '.', '.', '.', 'X', '.', '.', 'X', 'X'],
+['X', '.', 'X', 'X', 'X', '.', 'X', 'X', '.', '.', 'X', 'X', 'X'],
+['X', '.', '.', '.', 'X', '.', '.', '.', '.', 'X', 'X', 'X', 'X'],
+['X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X']]

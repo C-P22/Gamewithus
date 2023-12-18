@@ -15,7 +15,7 @@ class Enemy(pygame.sprite.Sprite):
         self.y = y * TILE_SIZE
         self.width = ENTITY_SIZE
         self.height = ENTITY_SIZE
-        self.healt = 3 
+        self.health = 1
         self.x_change = 0
         self.y_change = 0
 
@@ -39,7 +39,8 @@ class Enemy(pygame.sprite.Sprite):
 
         self.x_change = 0
         self.y_change = 0
-
+        if self.health <= 0:
+            self.killing()
     def movement(self):
         if self.facing == 'left':
             self.x_change -= ENEMY_SPEED
