@@ -51,10 +51,13 @@ class Game:
                 value = self.light_value_matrix[i][j] -self.light_value_matrix_change[i][j]
                 if value < 0:
                     value = START_PLAYER_LIGHT_RANGE
-            
-                    
-                new_alpha = 255 * (1 - value / self.player.light_range)
+
+                new_alpha = 255 * (1 - self.light_value_matrix[i][j] / LIGHT_INTENSITIES_COUNT)
                 old_alpha = self.darkness_matrix[i][j].get_alpha()
+
+                if new_alpha == 255 and old_alpha != 255:
+                    new_alpha = 255 * (1 - 1 / LIGHT_INTENSITIES_COUNT)
+
                 self.darkness_matrix[i][j].set_alpha(old_alpha + (new_alpha - old_alpha) / (LIGHT_ADAPTION_TIME / START_PLAYER_SPEED * FPS))
         # store the tile position of player so I know if the light changed in the next iteration
         self.prev_player_tile_position = self.player.get_tile_position()
