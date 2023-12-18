@@ -11,7 +11,7 @@ class Wall(Block):
             groups = game.all_sprites, game.blocks
         else:
             groups = game.all_sprites, game.blocks,game.destroyable
-        Block.__init__(self, x, y, groups)
+        Block.__init__(self, x, y, groups,game)
 
         Block.set_color(self, SAND_COLOR)
     
