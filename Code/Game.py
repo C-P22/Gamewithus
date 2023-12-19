@@ -51,8 +51,8 @@ class Game:
                 value = self.light_value_matrix[i][j] -self.light_value_matrix_change[i][j]
                 if value < 0:
                     value = START_PLAYER_LIGHT_RANGE
-
-                new_alpha = 255 * (1 - self.light_value_matrix[i][j] / LIGHT_INTENSITIES_COUNT)
+                new_alpha = 255 * (1 - value / LIGHT_INTENSITIES_COUNT)
+                
                 old_alpha = self.darkness_matrix[i][j].get_alpha()
 
                 if new_alpha == 255 and old_alpha != 255:

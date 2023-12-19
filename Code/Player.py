@@ -1,7 +1,7 @@
 import pygame
 import math
 from weapon import *
-
+from HealthBar import * 
 from config import *
 from Character import *
 
@@ -31,14 +31,14 @@ class Player(pygame.sprite.Sprite, Character):
 
         self.is_overlapping_with_portal = False
         self.facing = 'down'
-
+        self.health_bar = HealthBar(game,self)
     def update(self):
         self.movement()
         self.collide_enemy()
         self.weapon.update()
         self.collide()
         self.update_sprite()
-    
+        self.health_bar.draw()
     def reload(self):
         self.facing = "down"
         
@@ -112,7 +112,7 @@ class Player(pygame.sprite.Sprite, Character):
     def collide_enemy(self):
         hits = pygame.sprite.spritecollide(self, self.game.enemies, False)
         if hits:
-            NEW_HEALTH()
+            #print(NEW_HEALTH())
             if NEW_HEALTH() == 0:
                 self.kill()
                 self.game.playing = False
