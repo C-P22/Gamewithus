@@ -78,28 +78,29 @@ class Game:
             for j, colum in enumerate(row):
                 if colum == "X":
                     self.wall_matrix[j][i] = 1
-                    self.enemie_movement[j][i] = 1
+                    self.enemie_movement[i][j] = 0
                     Wall(self, j, i, True)
                 if colum == "P":
                     self.player = Player(self, j, i)
-                    self.enemie_movement[j][i] = 1
+                    self.enemie_movement[i][j] = 1
                     Floor(self, j, i)
                 if colum == ".":
                     x = random.randint(0, 50)
                     if x < 10:
                         self.wall_matrix[j][i] = 1
-                        self.enemie_movement[j][i] = 1
+                        self.enemie_movement[i][j] = 1
                         Wall(self, j, i, False)
                     elif x == 10:
                         Floor(self, j, i)
-                        self.enemie_movement[j][i] = 1
+                        self.enemie_movement[i][j] = 1
                         Powerup(self, j, i)
                     elif x == 20:
                         Floor(self, j, i)
-                        self.enemie_movement[j][i] = 1
+                        self.enemie_movement[i][j] = 1
                         Enemy(self, j, i)
                     else:
                         Floor(self, j, i)
+                        self.enemie_movement[i][j] = 1
                 if colum == "E":
                     Floor(self, j, i)
                     Portal(self, j, i)
