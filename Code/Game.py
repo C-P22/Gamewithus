@@ -55,6 +55,8 @@ class Game:
         self.prev_player_tile_position = -1, -1
         self.labrinth_length += 3
         self.labrinth_width += 3
+        self.labrinth_length = 20
+        self.labrinth_width = 20
         self.initialize_game_objects()
         self.create_level()
 
@@ -74,7 +76,8 @@ class Game:
         self.darkness_matrix = [[0 for _ in range(self.labrinth_length)] for _ in range(self.labrinth_width)]
         self.enemie_movement = [[0 for _ in range(self.labrinth_length)] for _ in range(self.labrinth_width)]
         level = Maze(self.labrinth_length, self.labrinth_width, self.labrinth_length // 2, self.labrinth_width // 2)
-        for i, row in enumerate(level.maze):
+        level = level_1
+        for i, row in enumerate(level):
             for j, colum in enumerate(row):
                 if colum == "X":
                     self.wall_matrix[j][i] = 1
@@ -100,6 +103,10 @@ class Game:
                         Enemy(self, j, i)
                     else:
                         Floor(self, j, i)
+                if colum == 'L':
+                    Floor(self, j, i)
+                    self.enemie_movement[j][i] = 1
+                    Enemy(self, j, i)
                 if colum == "E":
                     Floor(self, j, i)
                     Portal(self, j, i)
