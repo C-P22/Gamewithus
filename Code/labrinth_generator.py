@@ -9,7 +9,7 @@ class Maze:
     WALL = "X"
     PATH = "."
     PLAYER = "P"
-    VISITED = "V"  # is important for the maze generator so if a stone is the neighbor of two other stones make it a wall
+    VISITED = "V"  # is important for the maze generator so if a stone is the neighbor of two other stones markt as walls
     END = "E"
 
     def __init__(self, length, width, y_player, x_player):

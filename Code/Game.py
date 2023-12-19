@@ -74,14 +74,14 @@ class Game:
     def create_level(self):
         self.wall_matrix = [[0 for _ in range(self.labrinth_length)] for _ in range(self.labrinth_width)]
         self.darkness_matrix = [[0 for _ in range(self.labrinth_length)] for _ in range(self.labrinth_width)]
-        self.enemie_movement = [[0 for _ in range(self.labrinth_length)] for _ in range(self.labrinth_width)]
+        self.enemie_movement = [[1 for _ in range(self.labrinth_length)] for _ in range(self.labrinth_width)]
         level = Maze(self.labrinth_length, self.labrinth_width, self.labrinth_length // 2, self.labrinth_width // 2)
         level = level_1
         for i, row in enumerate(level):
             for j, colum in enumerate(row):
                 if colum == "X":
                     self.wall_matrix[j][i] = 1
-                    self.enemie_movement[j][i] = 1
+                    self.enemie_movement[i][j] = 0
                     Wall(self, j, i, True)
                 if colum == "P":
                     self.player = Player(self, j, i)
@@ -89,18 +89,11 @@ class Game:
                     Floor(self, j, i)
                 if colum == ".":
                     x = random.randint(0, 50)
-                    if x < 10:
-                        self.wall_matrix[j][i] = 1
-                        self.enemie_movement[j][i] = 1
-                        Wall(self, j, i, False)
-                    elif x == 10:
+                    
+                    if x == 10:
                         Floor(self, j, i)
                         self.enemie_movement[j][i] = 1
                         Powerup(self, j, i)
-                    elif x == 20:
-                        Floor(self, j, i)
-                        self.enemie_movement[j][i] = 1
-                        Enemy(self, j, i)
                     else:
                         Floor(self, j, i)
                 if colum == 'L':
