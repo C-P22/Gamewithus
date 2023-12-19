@@ -16,6 +16,7 @@ class Block(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self, self.groups)
 
     def set_sprite(self, sprite_path):
+        sprite_path = f'code/{sprite_path}'
         image_to_load = pygame.image.load(sprite_path)
         self.image = pygame.Surface([self.width, self.height])
         self.image.blit(image_to_load, (0, 0))
