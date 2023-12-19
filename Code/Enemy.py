@@ -4,11 +4,12 @@ import random
 
 
 def get_movement_matrix(movement_matrix, labyrinth_length, labyrinth_width):
-    for i in range(1, labyrinth_length-1):
-        for j in range(1, labyrinth_width-1):
-            if movement_matrix[i+1][j] + movement_matrix[i-1][j] + movement_matrix[i][j+1] + movement_matrix[i][j-1] != 2:
+    for i in range(1, labyrinth_length - 1):
+        for j in range(1, labyrinth_width - 1):
+            if movement_matrix[i + 1][j] + movement_matrix[i - 1][j] + movement_matrix[i][j + 1] + movement_matrix[i][j - 1] != 2:
                 movement_matrix[i][j] = 2
-            elif movement_matrix[i+1][j] + movement_matrix[i][j+1] == 2 or movement_matrix[i+1][j] + movement_matrix[i][j-1] == 2 or movement_matrix[i-1][j] + movement_matrix[i-1][j+1] == 2:
+            elif movement_matrix[i + 1][j] + movement_matrix[i][j + 1] == 2 or movement_matrix[i + 1][j] + \
+                    movement_matrix[i][j - 1] == 2 or movement_matrix[i - 1][j] + movement_matrix[i - 1][j + 1] == 2:
                 movement_matrix[i][j] = 2
     return movement_matrix
 
@@ -41,8 +42,12 @@ class Enemy(pygame.sprite.Sprite):
         self.rect.x = self.x
         self.rect.y = self.y
 
+        self.matrix_x = 0
+        self.matrix_y = 0
+        self.matrix_tile = 0
+
     def update(self):
-        self.movement()
+        self.enemy_movement(get_movement_matrix(self.game.enemie_movement, self.game.labrinth_length, self.game.labrinth_width))
 
         self.rect.x += self.x_change
         self.rect.y += self.y_change
@@ -62,41 +67,64 @@ class Enemy(pygame.sprite.Sprite):
             if self.movement_loop >= self.max_travel:
                 self.facing = 'left'
 
-    def enemy_movement(self, movement_matrix, labyrinth_length, labyrinth_width):
-        for i in range(labyrinth_length):
-            for j in range(labyrinth_width):
-                if movement_matrix[i][j] == 3:
-                    self.facing = random.choice(['up', 'down', 'right'])
-                    if self.facing == 'left':
-                        self.x_change -= ENEMY_SPEED
-                    elif self.facing == 'up':
-                        self.y_change += ENEMY_SPEED
-                    else:
-                        self.y_change -= ENEMY_SPEED
-                if movement_matrix == 1.2:
-                    self.facing = random.choice(['up', 'down', 'right'])
-                    if self.facing == 'left':
-                        self.x_change -= ENEMY_SPEED
-                    elif self.facing == 'up':
-                        self.y_change += ENEMY_SPEED
-                    else:
-                        self.y_change -= ENEMY_SPEED
-                if movement_matrix == 1.1:
-                    self.facing = random.choice(['up', 'down', 'right'])
-                    if self.facing == 'left':
-                        self.x_change -= ENEMY_SPEED
-                    elif self.facing == 'up':
-                        self.y_change += ENEMY_SPEED
-                    else:
-                        self.y_change -= ENEMY_SPEED
-                if movement_matrix == 1:
-                    self.facing = random.choice(['up', 'down', 'right'])
-                    if self.facing == 'left':
-                        self.x_change -= ENEMY_SPEED
-                    elif self.facing == 'up':
-                        self.y_change += ENEMY_SPEED
-                    else:
-                        self.y_change -= ENEMY_SPEED
+    def enemy_movement(self, movement_matrix):
+        self.facing = random.choice(['up', 'down', 'left', 'right'])
+        if self.facing == 'up' and movement_matrix[self.matrix_x][self.matrix_y] == 1:  # schaut, ob es an der Position eine Wand ist
+            if movement_matrix[self.matrix_y + 1][self.matrix_x] != 0:  # schaut, ob der nächste Tile eine Wand ist
+                self.y_change += ENEMY_SPEED
+                self.matrix_tile += ENEMY_SPEED
+                if self.matrix_tile >= TILE_SIZE:  # bewegt so lange bis es ein Tile durchläuft
+                    self.matrix_tile = self.matrix_tile - TILE_SIZE
+                    self.matrix_y += 1
+        elif self.facing == 'down' and movement_matrix[self.matrix_y][self.matrix_x] == 1:
+            if movement_matrix[self.matrix_y - 1][self.matrix_x] != 0:
+                self.y_change -= ENEMY_SPEED
+                self.matrix_tile += ENEMY_SPEED
+                if self.matrix_tile >= TILE_SIZE:
+                    self.matrix_tile = self.matrix_tile - TILE_SIZE
+                    self.matrix_y -= 1
+        elif self.facing == 'left' and movement_matrix[self.matrix_y][self.matrix_x] == 1:
+            if movement_matrix[self.matrix_y][self.matrix_x - 1] != 0:
+                self.x_change -= ENEMY_SPEED
+                self.matrix_tile += ENEMY_SPEED
+                if self.matrix_tile >= TILE_SIZE:
+                    self.matrix_tile = self.matrix_tile - TILE_SIZE
+                    self.matrix_x -= 1
+        else:
+            if movement_matrix[self.matrix_y][self.matrix_x + 1] != 0:
+                self.y_change += ENEMY_SPEED
+                self.matrix_tile += ENEMY_SPEED
+                if self.matrix_tile >= TILE_SIZE:
+                    self.matrix_tile = self.matrix_tile - TILE_SIZE
+                    self.matrix_x += 1
 
-
-
+            if movement_matrix[self.matrix_y][self.matrix_x] == 2:
+                self.facing = random.choice(['up', 'down', 'left', 'right'])
+                if self.facing == 'up' and movement_matrix[self.matrix_y][self.matrix_x] == 2:
+                    if movement_matrix[self.matrix_y + 1][self.matrix_x] != 0:
+                        self.y_change += ENEMY_SPEED
+                        self.matrix_tile += ENEMY_SPEED
+                        if self.matrix_tile >= TILE_SIZE:
+                            self.matrix_tile = self.matrix_tile - TILE_SIZE
+                            self.matrix_y += 1
+                elif self.facing == 'down' and movement_matrix[self.matrix_y][self.matrix_x] == 2:
+                    if movement_matrix[self.matrix_y - 1][self.matrix_x] != 0:
+                        self.y_change -= ENEMY_SPEED
+                        self.matrix_tile += ENEMY_SPEED
+                        if self.matrix_tile >= TILE_SIZE:
+                            self.matrix_tile = self.matrix_tile - TILE_SIZE
+                            self.matrix_y -= 1
+                elif self.facing == 'left' and movement_matrix[self.matrix_y][self.matrix_x] == 2:
+                    if movement_matrix[self.matrix_y][self.matrix_x - 1] != 0:
+                        self.x_change -= ENEMY_SPEED
+                        self.matrix_tile += ENEMY_SPEED
+                        if self.matrix_tile >= TILE_SIZE:
+                            self.matrix_tile = self.matrix_tile - TILE_SIZE
+                            self.matrix_x -= 1
+                elif self.facing == 'right' and movement_matrix[self.matrix_y][self.matrix_x] == 2:
+                    if movement_matrix[self.matrix_y][self.matrix_x + 1] != 0:
+                        self.x_change += ENEMY_SPEED
+                        self.matrix_tile += ENEMY_SPEED
+                        if self.matrix_tile >= TILE_SIZE:
+                            self.matrix_tile = self.matrix_tile - TILE_SIZE
+                            self.matrix_x += 1

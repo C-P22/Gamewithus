@@ -14,7 +14,7 @@ def print_matrix(matrix):
         print(" ".join(map(str, row)))
 
 
-size = 3
+size = 7
 result_matrix = generate_matrix(size)
 
 print_matrix(result_matrix)
