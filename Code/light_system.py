@@ -1,38 +1,3 @@
-from icecream import ic
-from config import *
-def path_finder(y,x,tiles,maze_matrix,visited):
-    #ic(y,x)
-    visited[y][x] = 'T' 
-    if maze_matrix[y][x] == 'E':
-        #ic(x,y)
-        return True, tiles
-    neighbors = [[y - 1, x], [y + 1, x], [y, x + 1], [y, x - 1]]
-    for neighbor in neighbors:  # Iterate over a copy of the list
-
-        y_now, x_now = neighbor
-        if maze_matrix[y_now][x_now] != 'X'and visited[y_now][x_now] == 'f'  :
-            tile = tiles.copy()
-            tile.append(neighbor)
-            x, end_tiles = path_finder(y_now,x_now,tile,maze_matrix,visited)
-            #ic(x)
-            if x:
-                return True, end_tiles
-    return False, False
-            
-def light_paht(maze_matrix,player_pos):
-    position_x,position_y = player_pos
-
-    visited = [['f' for _ in range(len(maze_matrix))] for _ in range(len(maze_matrix[0]))]
-    light_value_matrix_change = [[0 for _ in range(len(maze_matrix))] for _ in range(len(maze_matrix[0]))]
-
-    found, paths = path_finder(position_y,position_x,[],maze_matrix,visited)
-
-    for path in paths: 
-        y,x = path
-       # print(path)
-        light_value_matrix_change[x][y] = START_PLAYER_LIGHT_RANGE+3
-    light_value_matrix_change[position_y][position_x] = 3
-    return light_value_matrix_change
 def get_light_matrix(wall_matrix, target_tile, target_light_range):
     # room is dark at the start
     light_matrix = [[0 for _, _ in enumerate(wall_matrix)] for _, _ in enumerate(wall_matrix[0])]

@@ -7,6 +7,6 @@ from Blocks.block import *
 class Powerup(Block):
     def __init__(self, game, x, y):
 
-        Block.__init__(self, x, y, (game.all_sprites, game.powerup),game)
+        Block.__init__(self, x, y, (game.all_sprites, game.powerup), game, POWERUP_LAYER)
         
         Block.set_color(self, BOOST_COLOR)
