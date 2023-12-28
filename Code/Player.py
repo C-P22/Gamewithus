@@ -3,10 +3,8 @@ import math
 from weapon import *
 
 from config import *
-from Character import *
 
-
-class Player(pygame.sprite.Sprite, Character):
+class Player(pygame.sprite.Sprite):
 
     def __init__(self, game, x, y):
         self.game = game
@@ -18,6 +16,9 @@ class Player(pygame.sprite.Sprite, Character):
         self.height = ENTITY_SIZE
 
         self.image = pygame.Surface([self.width,self.height])
+        self.image.blit(pygame.image.load("img/player/player_look_down.png"),(0,0))
+
+        self.image.set_colorkey(PINK)
         
         self.rect = self.image.get_rect()  # hit box is the same size as the image
 
@@ -32,17 +33,14 @@ class Player(pygame.sprite.Sprite, Character):
         self.is_overlapping_with_portal = False
         self.facing = 'down'
 
+        self.x_change = 0
+        self.y_change = 0
+
     def update(self):
         self.movement()
         self.weapon.update()
         self.collide()
         self.update_sprite()
-    
-    def reload(self):
-        self.facing = "down"
-        
-        self.x_change = 0
-        self.y_change = 0
     
     def update_sprite(self):
         # pass because those sprites don't exist yet.
@@ -55,7 +53,6 @@ class Player(pygame.sprite.Sprite, Character):
             pass
         else:
             self.image.blit(pygame.image.load("img/player/player_look_down.png"),(0,0))
-        self.image.set_colorkey(PINK)
 
     def collide(self):
         if not self.game.in_debug_mode:
@@ -77,7 +74,6 @@ class Player(pygame.sprite.Sprite, Character):
         for _ in range(sub_step_count):
             self.rect.x += self.x_change / sub_step_count
             self.collide_block('x')
-
             self.rect.y += self.y_change / sub_step_count
             self.collide_block('y')
 
@@ -123,12 +119,10 @@ class Player(pygame.sprite.Sprite, Character):
 
         if direction == "x":
             # False ist, ob wir der Sprite löschen wollen
-            hits = pygame.sprite.spritecollide(self, self.game.blocks,
-                                               False)  # prüft, ob die rect zweier Sprites miteinander kollidieren
+            hits = pygame.sprite.spritecollide(self, self.game.blocks, False)  # prüft, ob die rect zweier Sprites miteinander kollidieren
             if hits:
                 if self.x_change > 0:
-                    self.rect.x = hits[
-                                      0].rect.left - self.rect.width  # wir setzen self.rect.x zu Linke Ecke und dann rechnen wir minus width von unserem player
+                    self.rect.x = hits[0].rect.left - self.rect.width  # wir setzen self.rect.x zu Linke Ecke und dann rechnen wir minus width von unserem player
                     # for sprite in self.game.all_sprites:
                     #    sprite.rect.x += PLAYER_SPEED
                 if self.x_change < 0:
@@ -136,17 +130,14 @@ class Player(pygame.sprite.Sprite, Character):
                     # for sprite in self.game.all_sprites:
                     #    sprite.rect.x -= PLAYER_SPEED
         if direction == "y":
-            hits = pygame.sprite.spritecollide(self, self.game.blocks,
-                                               False)  # prüft obt die rect zweier Sprites miteinander kollidieren
+            hits = pygame.sprite.spritecollide(self, self.game.blocks, False)  # prüft obt die rect zweier Sprites miteinander kollidieren
             if hits:
                 if self.y_change > 0:
-                    self.rect.y = hits[
-                                      0].rect.top - self.rect.height  # wir setzen self.rect.x zu Linke Ecke und dann rechnen wir minus width von unserem player
+                    self.rect.y = hits[0].rect.top - self.rect.height  # wir setzen self.rect.x zu Linke Ecke und dann rechnen wir minus width von unserem player
                     # for sprite in self.game.all_sprites:
                     # #   sprite.rect.y += PLAYER_SPEED
                 if self.y_change < 0:
-                    self.rect.y = hits[
-                        0].rect.bottom  # wir setzen self.rect.x zu Linke Ecke und dann rechnen wir minus width von unserem player
+                    self.rect.y = hits[0].rect.bottom  # wir setzen self.rect.x zu Linke Ecke und dann rechnen wir minus width von unserem player
                     # for sprite in self.game.all_sprites:
                     #    sprite.rect.y -= PLAYER_SPEED
     

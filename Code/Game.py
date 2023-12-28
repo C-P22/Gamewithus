@@ -22,10 +22,11 @@ class Game:
         self.screen = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT))
         self.clock = pygame.time.Clock()  # frame rate
         self.running = True
-        self.labyrinth_length = 8
-        self.labyrinth_width = 8
+        self.labyrinth_length = START_LABYRINTH_LENGTH - LABYRINTH_LENGTH_INCREASE
+        self.labyrinth_width = START_LABYRINTH_WIDTH - LABYRINTH_WIDTH_INCREASE
         self.in_debug_mode = False
         self.tick = 0
+        self.playing = True
 
     def update(self):
         self.tick += 1
@@ -82,14 +83,12 @@ class Game:
 
     def load_next_level(self):
         self.prev_player_tile_position = -1, -1
-        self.labyrinth_length += 3
-        self.labyrinth_width += 3
-        self.initialize_game_objects()
+        self.labyrinth_length += LABYRINTH_LENGTH_INCREASE
+        self.labyrinth_width += LABYRINTH_WIDTH_INCREASE
+        self.update_sprites()
         self.create_level()
-        self.player.reload()
 
-    def initialize_game_objects(self):
-        self.playing = True
+    def update_sprites(self):
         self.all_sprites = pygame.sprite.LayeredUpdates()  # hier können wir unsere Sprites reintun
         self.blocks = pygame.sprite.LayeredUpdates()
         self.darkness = pygame.sprite.LayeredUpdates()
