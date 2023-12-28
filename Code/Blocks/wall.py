@@ -21,5 +21,4 @@ class Wall(Block):
 
         Block.__init__(self, x, y, groups, game, layer)
 
-        Block.set_color(self, SAND_COLOR)
-    
+        Block.set_sprite(self, WALL_SPRITE_PATH)

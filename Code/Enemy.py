@@ -11,25 +11,20 @@ class Enemy(pygame.sprite.Sprite):
         self.groups = self.game.all_sprites, self.game.enemies,self.game.destroyable
         pygame.sprite.Sprite.__init__(self, self.groups)
 
-        self.x = x * TILE_SIZE + (TILE_SIZE - ENTITY_SIZE) // 2
-        self.y = y * TILE_SIZE + (TILE_SIZE - ENTITY_SIZE) // 2
+        self.health = 1
+
         self.width = ENTITY_SIZE
         self.height = ENTITY_SIZE
-        self.health = 1
+        
         self.x_change = 0
         self.y_change = 0
-
-        self.facing = random.choice(['left', 'right'])
-        self.animation_loop = 1
-        self.movement_loop = 0
-        self.max_travel = random.randint(30, 50)
 
         self.image = pygame.Surface([self.width, self.height])
         self.image.fill(ENEMY_COLOR)
 
         self.rect = self.image.get_rect()
-        self.rect.x = self.x
-        self.rect.y = self.y
+        self.rect.x = x * TILE_SIZE + (TILE_SIZE - ENTITY_SIZE) // 2
+        self.rect.y = y * TILE_SIZE + (TILE_SIZE - ENTITY_SIZE) // 2
 
         # the direction this enemy moved towards in the previous frame with the numbers 0, 1, 2, 3 representing right, up, left, down
         self.prev_mov_dir = random.randint(0, 3)
