@@ -55,7 +55,7 @@ class Player(pygame.sprite.Sprite, Character):
             pass
         else:
             self.image.blit(pygame.image.load("img/player/player_look_down.png"),(0,0))
-        self.image.set_colorkey(BLACK)
+        self.image.set_colorkey(PINK)
 
     def collide(self):
         if not self.game.in_debug_mode:

@@ -25,8 +25,10 @@ class Game:
         self.labyrinth_length = 8
         self.labyrinth_width = 8
         self.in_debug_mode = False
+        self.tick = 0
 
     def update(self):
+        self.tick += 1
         self.in_debug_mode = bool(pygame.key.get_pressed()[pygame.K_c])
         self.player.update()
         if self.player.is_overlapping_with_portal:
@@ -35,21 +37,17 @@ class Game:
         self.update_light()
         self.destroyable.update()
 
-
-        return 
     def update_light(self):
-        # # only calculate light when it changes
+        # only calculate light matrix when it changes
         if (self.prev_player_tile_position == self.player.get_tile_position()):
             self.light_value_matrix = light_system.get_light_matrix(self.is_wall_matrix, self.player.get_tile_position(), self.player.light_range)
         
-        # light_fluctuation = random.random()
-
         # set light values
         for i in range(len(self.light_value_matrix)):
             for j in range(len(self.light_value_matrix[i])):
                 if self.in_debug_mode:
                     self.darkness_matrix[i][j].set_alpha(0)
-                    
+
                     if self.hidden_floors[i][j] != 0:
                         self.hidden_floors[i][j].set_alpha(0)
 
@@ -57,6 +55,7 @@ class Game:
                         self.hidden_walls[i][j].set_alpha(0)
                     continue
                 
+                #player can't see enemies, powerups, etc. even if the darkness wasn't fully covering it
                 if self.light_value_matrix[i][j] <= 1:
                     if self.hidden_floors[i][j] != 0:
                         self.hidden_floors[i][j].set_alpha(255)
@@ -70,16 +69,12 @@ class Game:
                     if self.hidden_walls[i][j] != 0:
                         self.hidden_walls[i][j].set_alpha(0)
 
-
-
                 new_alpha = 255 * (1 - self.light_value_matrix[i][j] / LIGHT_INTENSITIES_COUNT)
                 old_alpha = self.darkness_matrix[i][j].get_alpha()
 
+                # player can see where they were before
                 if new_alpha == 255 and old_alpha != 255:
                     new_alpha = 255 * (1 - 1 / LIGHT_INTENSITIES_COUNT)
-                    # the player is only supposed to know where he was, not where the enemies are where he wouldn't actually be able to see
-                    # put the ground tile above the enemy tile so that the player can't see where the enemy is
-
 
                 self.darkness_matrix[i][j].set_alpha(old_alpha + START_PLAYER_SPEED * (new_alpha - old_alpha) / (LIGHT_ADAPTION_TIME * FPS))
         # store the tile position of player so I know if the light changed in the next iteration
