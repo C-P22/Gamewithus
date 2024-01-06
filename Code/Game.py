@@ -22,56 +22,73 @@ class Game:
         self.screen = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT))
         self.clock = pygame.time.Clock()  # frame rate
         self.running = True
-        self.labrinth_length = 8
-        self.labrinth_width = 8
+        self.labyrinth_length = START_LABYRINTH_LENGTH - LABYRINTH_LENGTH_INCREASE
+        self.labyrinth_width = START_LABYRINTH_WIDTH - LABYRINTH_WIDTH_INCREASE
+        self.in_debug_mode = False
+        self.tick = 0
+        self.playing = True
 
     def update(self):
+        self.tick += 1
+        self.in_debug_mode = bool(pygame.key.get_pressed()[pygame.K_c])
         self.player.update()
         if self.player.is_overlapping_with_portal:
             self.load_next_level()
         self.enemies.update()
         self.update_light()
         self.destroyable.update()
-    def l_light_to_path(self):
-        key = pygame.key.get_pressed()  # checks which keys are being pressed
-        if key[pygame.K_l]:
-            self.light_value_matrix_change = light_system.light_paht(self.maze,self.player.get_tile_position())
-            #print(self.light_value_matrix_change)
 
-        return 
     def update_light(self):
-        # # only calculate light when it changes
+        # only calculate light matrix when it changes
         if (self.prev_player_tile_position == self.player.get_tile_position()):
-            self.light_value_matrix = light_system.get_light_matrix(self.wall_matrix, self.player.get_tile_position(), self.player.light_range)
-        self.l_light_to_path()
-
+            self.light_value_matrix = light_system.get_light_matrix(self.is_wall_matrix, self.player.get_tile_position(), self.player.light_range)
+        
         # set light values
         for i in range(len(self.light_value_matrix)):
             for j in range(len(self.light_value_matrix[i])):
-                value = self.light_value_matrix[i][j] -self.light_value_matrix_change[i][j]
-                if value < 0:
-                    value = START_PLAYER_LIGHT_RANGE
-                new_alpha = 255 * (1 - value / LIGHT_INTENSITIES_COUNT)
+                if self.in_debug_mode:
+                    self.darkness_matrix[i][j].set_alpha(0)
+
+                    if self.hidden_floors[i][j] != 0:
+                        self.hidden_floors[i][j].set_alpha(0)
+
+                    if self.hidden_walls[i][j] != 0:
+                        self.hidden_walls[i][j].set_alpha(0)
+                    continue
                 
+                #player can't see enemies, powerups, etc. even if the darkness wasn't fully covering it
+                if self.light_value_matrix[i][j] <= 1:
+                    if self.hidden_floors[i][j] != 0:
+                        self.hidden_floors[i][j].set_alpha(255)
+
+                    if self.hidden_walls[i][j] != 0:
+                        self.hidden_walls[i][j].set_alpha(255)
+                else:
+                    if self.hidden_floors[i][j] != 0:
+                        self.hidden_floors[i][j].set_alpha(0)
+
+                    if self.hidden_walls[i][j] != 0:
+                        self.hidden_walls[i][j].set_alpha(0)
+
+                new_alpha = 255 * (1 - self.light_value_matrix[i][j] / LIGHT_INTENSITIES_COUNT)
                 old_alpha = self.darkness_matrix[i][j].get_alpha()
 
+                # player can see where they were before
                 if new_alpha == 255 and old_alpha != 255:
                     new_alpha = 255 * (1 - 1 / LIGHT_INTENSITIES_COUNT)
 
-                self.darkness_matrix[i][j].set_alpha(old_alpha + (new_alpha - old_alpha) / (LIGHT_ADAPTION_TIME / START_PLAYER_SPEED * FPS))
+                self.darkness_matrix[i][j].set_alpha(old_alpha + START_PLAYER_SPEED * (new_alpha - old_alpha) / (LIGHT_ADAPTION_TIME * FPS))
         # store the tile position of player so I know if the light changed in the next iteration
         self.prev_player_tile_position = self.player.get_tile_position()
 
     def load_next_level(self):
         self.prev_player_tile_position = -1, -1
-        self.labrinth_length += 3
-        self.labrinth_width += 3
-        self.initialize_game_objects()
+        self.labyrinth_length += LABYRINTH_LENGTH_INCREASE
+        self.labyrinth_width += LABYRINTH_WIDTH_INCREASE
+        self.update_sprites()
         self.create_level()
-        self.player.reload()
 
-    def initialize_game_objects(self):
-        self.playing = True
+    def update_sprites(self):
         self.all_sprites = pygame.sprite.LayeredUpdates()  # hier können wir unsere Sprites reintun
         self.blocks = pygame.sprite.LayeredUpdates()
         self.darkness = pygame.sprite.LayeredUpdates()
@@ -88,39 +105,42 @@ class Game:
         self.weapons = pygame.sprite.LayeredUpdates()
         self.destroyable = pygame.sprite.LayeredUpdates()
 
+    def get_empty_labyrinth_matrix(self):
+        return [[0 for _ in range(self.labyrinth_length)] for _ in range(self.labyrinth_width)]
+
     def create_level(self):
         # matrices are used to retrieve information about the maze
-        self.wall_matrix = [[0 for _ in range(self.labrinth_length)] for _ in range(self.labrinth_width)]
-        self.darkness_matrix = [[0 for _ in range(self.labrinth_length)] for _ in range(self.labrinth_width)]
-        self.light_value_matrix = [[0 for _ in range(self.labrinth_length)] for _ in range(self.labrinth_width)]
-        self.light_value_matrix_change = [[0 for _ in range(self.labrinth_length)] for _ in range(self.labrinth_width)]
+        self.is_wall_matrix = self.get_empty_labyrinth_matrix()
+        self.darkness_matrix = self.get_empty_labyrinth_matrix()
+        self.light_value_matrix = self.get_empty_labyrinth_matrix()
+        self.floor_matrix = self.get_empty_labyrinth_matrix()
+        self.hidden_floors = self.get_empty_labyrinth_matrix()
+        self.hidden_walls = self.get_empty_labyrinth_matrix()
+
         # make maze
-        level = Maze(self.labrinth_length, self.labrinth_width, self.labrinth_length // 2, self.labrinth_width // 2)
+        level = Maze(self.labyrinth_length, self.labyrinth_width, self.labyrinth_length // 2, self.labyrinth_width // 2)
         self.maze = level.maze 
         for i, row in enumerate(level.maze):
             for j, colum in enumerate(row):
+                self.floor_matrix[j][i] = Floor(self, j, i)
+                self.hidden_floors[j][i] = Floor(self, j, i, True)
                 if colum == "X":
-                    self.wall_matrix[j][i] = 1
+                    self.is_wall_matrix[j][i] = 1
                     Wall(self, j, i, True)
+                    self.hidden_walls[j][i] = Wall(self, j, i, True, True)
                 if colum == "P":
                     self.player = Player(self, j, i)
-                    Floor(self, j, i)
                 if colum == ".":
                     x = random.randint(0, 50)
                     if x < 10:
-                        self.wall_matrix[j][i] = 1
-                        Floor(self, j, i)
+                        self.is_wall_matrix[j][i] = 1
                         Wall(self, j, i, False)
+                        self.hidden_walls[j][i] = Wall(self, j, i, False, True)
                     elif x == 10:
-                        Floor(self, j, i)
                         Powerup(self, j, i)
                     elif x == 20:
-                        Floor(self, j, i)
                         Enemy(self, j, i)
-                    else:
-                        Floor(self, j, i)
                 if colum == "E":
-                    Floor(self, j, i)
                     Portal(self, j, i)
                 self.darkness_matrix[j][i] = Darkness(self, j, i)
 

@@ -5,13 +5,20 @@ from Blocks.block import *
 
 
 class Wall(Block):
-    def __init__(self, game, x, y, transparent):
+    def __init__(self, game, x, y, is_transparent, is_hidden = False):
+        
+        self.health = 3
 
-        if transparent:
+        if is_transparent:
             groups = game.all_sprites, game.blocks
         else:
-            groups = game.all_sprites, game.blocks,game.destroyable
-        Block.__init__(self, x, y, groups,game)
+            groups = game.all_sprites, game.blocks ,game.destroyable
+        
+        if (is_hidden):
+            layer = HIDDEN_WALL_LAYER
+        else:
+            layer = WALL_LAYER
 
-        Block.set_color(self, SAND_COLOR)
-    
+        Block.__init__(self, x, y, groups, game, layer)
+
+        Block.set_sprite(self, WALL_SPRITE_PATH)

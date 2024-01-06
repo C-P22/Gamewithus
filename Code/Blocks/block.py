@@ -3,7 +3,7 @@ from config import *
 
 
 class Block(pygame.sprite.Sprite):
-    def __init__(self, x, y, groups,game, layer = BLOCK_LAYER):
+    def __init__(self, x, y, groups,game, layer):
         self.orginal_x = x
         self.orginal_y = y 
         # allow for overriding the layer
@@ -12,7 +12,6 @@ class Block(pygame.sprite.Sprite):
         self.x = x * TILE_SIZE
         self.y = y * TILE_SIZE
         self.width = TILE_SIZE
-        self.health = 3 
         self.height = TILE_SIZE
 
         self.groups = groups
@@ -48,5 +47,6 @@ class Block(pygame.sprite.Sprite):
         if self.health <= 0:
             self.killing()
     def killing(self):
-        self.game.wall_matrix[self.orginal_x][self.orginal_y] = 0
+        self.game.is_wall_matrix[self.orginal_x][self.orginal_y] = 0
         self.kill()
+

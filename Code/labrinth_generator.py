@@ -26,8 +26,9 @@ class Maze:
             for x, block in enumerate(blocks):
                 if block == 'u':
                     self.maze[y][x] = "X"
-        self.farest_point()
-    def farest_point(self):
+        self.farthest_point()
+
+    def farthest_point(self):
         start = [[self.y_player,self.x_player]]
         while len(start) > 0:
 
@@ -44,7 +45,7 @@ class Maze:
                     self.visited[y_neigbor][x_neigbor] = True
                     start.append([y_neigbor,x_neigbor])
         self.maze[farthes_y][farthes_x] = Maze.END
-        return
+    
     def dfs_search(self, y, x):
 
         # ic(x, y, self.maze[y][x])
@@ -71,8 +72,3 @@ class Maze:
                 luck = random.randint(0, 30)  # jeder xte Block hat die Chance doch noch ein Path zu werden
                 if self.maze[y_ne][x_ne] == 'u' or self.maze[y_ne][x_ne] == 'V' or luck == 0:
                     self.dfs_search(y_ne, x_ne)
-#g = Maze(20,20,10//2,1)
-#ic(g.maze)
-
-#print()
-#print(@g.maze)
