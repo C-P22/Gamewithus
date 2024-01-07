@@ -133,7 +133,7 @@ class Game:
                 if colum == ".":
                     x = random.randint(0, 50)
                     if x < 10:
-                        self.is_wall_matrix[j][i] = 1
+                        #self.is_wall_matrix[j][i] = 1
                         Wall(self, j, i, False)
                         self.hidden_walls[j][i] = Wall(self, j, i, False, True)
                     elif x == 10:

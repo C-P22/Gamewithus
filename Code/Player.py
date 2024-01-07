@@ -123,6 +123,7 @@ class Player(pygame.sprite.Sprite):
         hits = pygame.sprite.spritecollide(self, self.game.enemies, False)
         if hits:
             #print(NEW_HEALTH())
+            self.health_bar.health()
             if NEW_HEALTH() == 0:
                 self.kill()
                 self.game.playing = False
