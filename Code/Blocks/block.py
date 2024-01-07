@@ -21,7 +21,7 @@ class Block(pygame.sprite.Sprite):
         image_to_load = pygame.image.load(sprite_path)
         self.image = pygame.Surface([self.width, self.height])
         self.image.blit(image_to_load, (0, 0))
-
+        self.image.set_colorkey(BLACK)
         self.rect = self.image.get_rect()
         self.rect_change_x = 0
         self.rect_change_y = 0
@@ -32,6 +32,7 @@ class Block(pygame.sprite.Sprite):
         self.image = pygame.Surface([self.width, self.height])
         self.image.fill(color)
         self.image.set_alpha(alpha)
+        
         self.rect = self.image.get_rect()
         self.rect.x = self.x
         self.rect.y = self.y

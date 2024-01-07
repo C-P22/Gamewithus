@@ -23,7 +23,7 @@ POWERUP_LAYER = 1
 FLOOR_LAYER = 0
 
 START_PLAYER_HEALTH = 100
-START_PLAYER_SPEED = 3
+START_PLAYER_SPEED = 5
 START_PLAYER_LIGHT_RANGE = 5
 LIGHT_INTENSITIES_COUNT = 5
 START_WEAPON_RANGE = 80
@@ -32,8 +32,8 @@ PLAYER_SPEED_INCREASE = 0.2
 LIGHT_ADAPTION_TIME = 0.5
 ENEMY_SPEED = 1
 
-START_LABYRINTH_WIDTH = 5
-START_LABYRINTH_LENGTH = 5
+START_LABYRINTH_WIDTH = 4
+START_LABYRINTH_LENGTH = 4
 LABYRINTH_WIDTH_INCREASE = 1
 LABYRINTH_LENGTH_INCREASE = 1
 
@@ -52,27 +52,25 @@ IMAGE_FOLDER = "img"
 PORTAL_SPRITE_PATH = os.path.join(IMAGE_FOLDER, "portal.png")
 FLOOR_SPRITE_PATH = os.path.join(IMAGE_FOLDER, "floorbig.png")
 WALL_SPRITE_PATH = os.path.join(IMAGE_FOLDER, "sandbrick-pixilart.png")
-TITLE_SCREEN_PATH = os.path.join(IMAGE_FOLDER, "title screen.png")
-WEAPON_SPRITE_PATH = os.path.join(IMAGE_FOLDER, os.path.join("weapon", "weopon.png"))
 
-PLAYER_IMAGE_FOLDER = os.path.join(IMAGE_FOLDER, "player")
+PLAYER_IMAGE_FLORDER = os.path.join(IMAGE_FOLDER, "player")
 
-PLAYER_ANIMATION_RIGHT = (pygame.image.load(os.path.join(PLAYER_IMAGE_FOLDER, "treasure-hunter-pixilart-right (0).png")),
-                          pygame.image.load(os.path.join(PLAYER_IMAGE_FOLDER, "treasure-hunter-pixilart-right (1).png")),
-                          pygame.image.load(os.path.join(PLAYER_IMAGE_FOLDER, "treasure-hunter-pixilart-right (2).png")),
-                          pygame.image.load(os.path.join(PLAYER_IMAGE_FOLDER, "treasure-hunter-pixilart-right (3).png")))
-PLAYER_ANIMATION_UP = (pygame.image.load(os.path.join(PLAYER_IMAGE_FOLDER, "treasure-hunter-pixilart-back (0).png")),
-                          pygame.image.load(os.path.join(PLAYER_IMAGE_FOLDER, "treasure-hunter-pixilart-back (1).png")),
-                          pygame.image.load(os.path.join(PLAYER_IMAGE_FOLDER, "treasure-hunter-pixilart-back (2).png")),
-                          pygame.image.load(os.path.join(PLAYER_IMAGE_FOLDER, "treasure-hunter-pixilart-back (3).png")))
-PLAYER_ANIMATION_LEFT = (pygame.image.load(os.path.join(PLAYER_IMAGE_FOLDER, "treasure-hunter-pixilart-left (0).png")),
-                          pygame.image.load(os.path.join(PLAYER_IMAGE_FOLDER, "treasure-hunter-pixilart-left (1).png")),
-                          pygame.image.load(os.path.join(PLAYER_IMAGE_FOLDER, "treasure-hunter-pixilart-left (2).png")),
-                          pygame.image.load(os.path.join(PLAYER_IMAGE_FOLDER, "treasure-hunter-pixilart-left (3).png")))
-PLAYER_ANIMATION_DOWN = (pygame.image.load(os.path.join(PLAYER_IMAGE_FOLDER, "treasure-hunter-pixilart-front (0).png")),
-                          pygame.image.load(os.path.join(PLAYER_IMAGE_FOLDER, "treasure-hunter-pixilart-front (1).png")),
-                          pygame.image.load(os.path.join(PLAYER_IMAGE_FOLDER, "treasure-hunter-pixilart-front (2).png")),
-                          pygame.image.load(os.path.join(PLAYER_IMAGE_FOLDER, "treasure-hunter-pixilart-front (3).png")))
+PLAYER_ANIMATION_RIGHT = (pygame.image.load(os.path.join(PLAYER_IMAGE_FLORDER, "treasure-hunter-pixilart-right (0).png")),
+                          pygame.image.load(os.path.join(PLAYER_IMAGE_FLORDER, "treasure-hunter-pixilart-right (1).png")),
+                          pygame.image.load(os.path.join(PLAYER_IMAGE_FLORDER, "treasure-hunter-pixilart-right (2).png")),
+                          pygame.image.load(os.path.join(PLAYER_IMAGE_FLORDER, "treasure-hunter-pixilart-right (3).png")))
+PLAYER_ANIMATION_UP = (pygame.image.load(os.path.join(PLAYER_IMAGE_FLORDER, "treasure-hunter-pixilart-back (0).png")),
+                          pygame.image.load(os.path.join(PLAYER_IMAGE_FLORDER, "treasure-hunter-pixilart-back (1).png")),
+                          pygame.image.load(os.path.join(PLAYER_IMAGE_FLORDER, "treasure-hunter-pixilart-back (2).png")),
+                          pygame.image.load(os.path.join(PLAYER_IMAGE_FLORDER, "treasure-hunter-pixilart-back (3).png")))
+PLAYER_ANIMATION_LEFT = (pygame.image.load(os.path.join(PLAYER_IMAGE_FLORDER, "treasure-hunter-pixilart-left (0).png")),
+                          pygame.image.load(os.path.join(PLAYER_IMAGE_FLORDER, "treasure-hunter-pixilart-left (1).png")),
+                          pygame.image.load(os.path.join(PLAYER_IMAGE_FLORDER, "treasure-hunter-pixilart-left (2).png")),
+                          pygame.image.load(os.path.join(PLAYER_IMAGE_FLORDER, "treasure-hunter-pixilart-left (3).png")))
+PLAYER_ANIMATION_DOWN = (pygame.image.load(os.path.join(PLAYER_IMAGE_FLORDER, "treasure-hunter-pixilart-front (0).png")),
+                          pygame.image.load(os.path.join(PLAYER_IMAGE_FLORDER, "treasure-hunter-pixilart-front (1).png")),
+                          pygame.image.load(os.path.join(PLAYER_IMAGE_FLORDER, "treasure-hunter-pixilart-front (2).png")),
+                          pygame.image.load(os.path.join(PLAYER_IMAGE_FLORDER, "treasure-hunter-pixilart-front (3).png")))
 
 RED = (255, 0, 0)
 BLACK = (0, 0, 0)
@@ -142,3 +140,6 @@ level_3 = [['u', 'X', 'X', 'X', 'u', 'X', 'X', 'X', 'X', 'u', 'X', 'X', 'X', 'X'
            ['u', 'u', 'u', 'u', 'u', 'u', 'u', 'u', 'X', 'X', '.', 'X', '.', '.', '.', 'X', 'X', 'X', '.', 'X'],
            ['u', 'u', 'u', 'u', 'u', 'u', 'u', 'u', 'u', 'X', '.', '.', '.', '.', 'X', '.', '.', '.', '.', 'X'],
            ['u', 'u', 'u', 'u', 'u', 'u', 'u', 'u', 'u', 'u', 'X', 'X', 'X', 'X', 'u', 'X', 'X', 'X', 'X', 'u']]
+ = (222, 111, 112)
+
+
