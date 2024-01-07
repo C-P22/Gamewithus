@@ -6,13 +6,14 @@ import sound_handler
 import light_system
 
 from labrinth_generator import Maze
-from Enemy import Enemy
-from Player import *
+from enemy import Enemy
+from player import *
 from Blocks.darkness import *
 from Blocks.floor import *
 from Blocks.portal import *
 from Blocks.powerup import *
 from Blocks.wall import *
+from title_screen import *
 
 class Game:
     def __init__(self):
@@ -27,16 +28,18 @@ class Game:
         self.in_debug_mode = False
         self.tick = 0
         self.playing = True
+        self.on_title_screen = True
 
     def update(self):
         self.tick += 1
         self.in_debug_mode = bool(pygame.key.get_pressed()[pygame.K_c])
+
         self.player.update()
-        if self.player.is_overlapping_with_portal:
-            self.load_next_level()
         self.enemies.update()
         self.update_light()
         self.destroyable.update()
+        if self.player.is_overlapping_with_portal:
+            self.load_next_level()
 
     def update_light(self):
         # only calculate light matrix when it changes
@@ -169,6 +172,12 @@ class Game:
         for sprite in self.all_sprites:
             sprite.rect.x -= camera_offset[0]
             sprite.rect.y -= camera_offset[1]
+    
+    def draw_screen_title_screen(self):
+        self.screen.fill(BLACK)
+        self.screen.blit(pygame.image.load("img/weapon/weopon.png"), (0, 0))
+        pygame.display.flip()
+
 
     def execute_events(self):
         for event in pygame.event.get():  # all events that are registered are here being checkt
@@ -182,9 +191,22 @@ class Game:
         if key[pygame.K_k]:
             for destroy in self.destroyable:
                 destroy.killing()
+    
+    def execute_events_title_screen(self):
+        for event in pygame.event.get():  # all events that are registered are here being checkt
+
+            if event.type == pygame.QUIT:
+                self.playing = False
+                self.running = False
+        if pygame.key.get_pressed()[pygame.K_SPACE]:
+            self.on_title_screen = False
+            
 
     def main(self):
-        while self.playing == True:
+        while self.playing:
+            # while self.on_title_screen:
+            #     self.execute_events_title_screen()
+            #     self.draw_screen()
             self.execute_events()
             self.update()
             self.draw_screen()

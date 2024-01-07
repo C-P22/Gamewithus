@@ -42,9 +42,8 @@ class Enemy(pygame.sprite.Sprite):
             self.kill()
 
     def move(self):
-
         # don't change direction if you're in the same tile as in the previous frame
-        if self.prev_tile_pos != self.get_tile_position() and self.is_fully_inside_tile():
+        if self.prev_tile_pos != self.get_tile_position() and self.is_fully_inside_tile() or self.prev_mov_dir == -1:
             choice = self.choose_direction()
             self.prev_tile_pos = self.get_tile_position()
         else:
