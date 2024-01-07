@@ -39,8 +39,7 @@ class Enemy(pygame.sprite.Sprite):
         self.x_change = 0
         self.y_change = 0
         if self.health <= 0:
-    def killing(self):
-        self.kill()
+            self.kill()
 
     def move(self):
         # don't change direction if you're in the same tile as in the previous frame

@@ -52,6 +52,8 @@ IMAGE_FOLDER = "img"
 PORTAL_SPRITE_PATH = os.path.join(IMAGE_FOLDER, "portal.png")
 FLOOR_SPRITE_PATH = os.path.join(IMAGE_FOLDER, "floorbig.png")
 WALL_SPRITE_PATH = os.path.join(IMAGE_FOLDER, "sandbrick-pixilart.png")
+TITLE_SCREEN_PATH = os.path.join(IMAGE_FOLDER, "title screen.png")
+WEAPON_SPRITE_PATH = os.path.join(IMAGE_FOLDER, os.path.join("weapon", "weopon.png"))
 
 PLAYER_IMAGE_FLORDER = os.path.join(IMAGE_FOLDER, "player")
 
@@ -140,6 +142,5 @@ level_3 = [['u', 'X', 'X', 'X', 'u', 'X', 'X', 'X', 'X', 'u', 'X', 'X', 'X', 'X'
            ['u', 'u', 'u', 'u', 'u', 'u', 'u', 'u', 'X', 'X', '.', 'X', '.', '.', '.', 'X', 'X', 'X', '.', 'X'],
            ['u', 'u', 'u', 'u', 'u', 'u', 'u', 'u', 'u', 'X', '.', '.', '.', '.', 'X', '.', '.', '.', '.', 'X'],
            ['u', 'u', 'u', 'u', 'u', 'u', 'u', 'u', 'u', 'u', 'X', 'X', 'X', 'X', 'u', 'X', 'X', 'X', 'X', 'u']]
- = (222, 111, 112)
 
 

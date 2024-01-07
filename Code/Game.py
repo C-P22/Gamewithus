@@ -1,13 +1,12 @@
 import pygame
 import random
 
-from config import *
 import sound_handler
 import light_system
 
 from labrinth_generator import Maze
-from enemy import Enemy
-from player import *
+from Enemy import Enemy
+from Player import *
 from Blocks.darkness import *
 from Blocks.floor import *
 from Blocks.portal import *
@@ -136,7 +135,7 @@ class Game:
                 if colum == ".":
                     x = random.randint(0, 50)
                     if x < 10:
-                        #self.is_wall_matrix[j][i] = 1
+                        self.is_wall_matrix[j][i] = 1
                         Wall(self, j, i, False)
                         self.hidden_walls[j][i] = Wall(self, j, i, False, True)
                     elif x == 10:
